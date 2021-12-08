@@ -1,0 +1,19 @@
+{
+  "name": "thomasrivetti_p7_07122021",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./css/style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThomasRivetti/ThomasRivetti_07_07122021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ThomasRivetti/ThomasRivetti_07_07122021/issues"
+  },
+  "homepage": "https://github.com/ThomasRivetti/ThomasRivetti_07_07122021#readme"
+}
