@@ -13,4 +13,27 @@
     &__containers {
         display: flex;
     }
+    &__listContainer {
+        padding: 10px;
+        margin: 2rem 0 0;
+        background: none;
+        cursor: pointer;
+        border: 0;
+        width: 170px;
+        height: 70px;
+        background-color: lightgreen;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &--ingredients {
+            background-color: $filters-1;
+        }
+        &--device {
+            background-color: $filters-2;
+        }
+        &--ustensils {
+            background-color: $filters-3;
+        }
+    }
 }

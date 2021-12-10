@@ -36,6 +36,17 @@ html {
         font-size: $font-text*3;
     }
 }
+.searchBar {
+    &__input {
+        font-family: 'Lato', sans-serif;
+        font-size: $font-text*1.5;
+        &::placeholder {
+            font-family: 'Lato', sans-serif;
+            font-size: $font-text*1.5;
+        }
+    }
+
+}
 .filters {
     &__btn, &__tag{
         font-family: 'Lato Bold', sans-serif;

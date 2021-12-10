@@ -73,6 +73,15 @@ html {
   font-size: 3.6rem;
 }
 
+.searchBar__input {
+  font-family: "Lato", sans-serif;
+  font-size: 1.8rem;
+}
+.searchBar__input::placeholder {
+  font-family: "Lato", sans-serif;
+  font-size: 1.8rem;
+}
+
 .filters__btn, .filters__tag {
   font-family: "Lato Bold", sans-serif;
   color: white;
@@ -138,17 +147,45 @@ body {
 .filters__containers {
   display: flex;
 }
+.filters__listContainer {
+  padding: 10px;
+  margin: 2rem 0 0;
+  background: none;
+  cursor: pointer;
+  border: 0;
+  width: 170px;
+  height: 70px;
+  background-color: lightgreen;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filters__listContainer--ingredients {
+  background-color: #3180f6;
+}
+.filters__listContainer--device {
+  background-color: #68d9a4;
+}
+.filters__listContainer--ustensils {
+  background-color: #ed6454;
+}
 
 .searchBar {
   background-color: #e6e6e6;
   height: 70px;
   margin: 2rem 0;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
 }
 .searchBar__input {
   background-color: #e6e6e6;
   border: 0;
   border-radius: 5px;
+}
+.searchBar__input:focus-visible {
+  outline: none;
 }
 
 .recipe__mainContainer {
@@ -218,10 +255,15 @@ body {
   background-color: #ed6454;
 }
 
+.ico__search {
+  width: 33px;
+  height: 33px;
+  margin-right: 2rem;
+}
 .ico__close {
   width: 24px;
   height: 24px;
-  margin-left: 5px;
+  margin-left: 1rem;
 }
 
 /*# sourceMappingURL=style.css.map */

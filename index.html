@@ -17,7 +17,7 @@
             <form action="" method="get" class="searchBar">
                 <label for="search" class="searchBar__form"></label>
                 <input type="search" name="search" id="search" class="searchBar__input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
-                <img src="/assets/img/ico/ico_search.svg" alt="search" class="searchBar__ico">
+                <img src="/assets/img/ico/ico_search.svg" alt="search" class="searchBar__ico ico__search">
             </form>
             <div class="filters__tags">
                 <ul class="filters__taglist">
@@ -43,13 +43,14 @@
                     </button>
                     <div>
                         <label for="ingredientInput"></label>
-                        <input type="search" id="ingredientInput" placeholder="Rechercher un ingrédient">
+                        <input type="search" list="ingredients" id="ingredientInput" placeholder="Rechercher un ingrédient" class="filters__listContainer filters__listContainer--ingredients">
                         <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                        <div class="ingredients__listcontainer">
-                            <ul class="filters__btnTaglist filters__btnTaglist--ingredients">
-                                <li class="filters__btnTag filters__btnTag--ingredients"></li>
-                            </ul>
-                        </div>
+                        <datalist id="ingredients">
+                            <option value="1">
+                            <option value="2">
+                            <option value="3">
+                            <option value="4">
+                        </datalist>
                     </div>
                 </div>
                 <div class="filters__device device__container">
@@ -59,13 +60,14 @@
                     </button>
                     <div>
                         <label for="ingredientInput"></label>
-                        <input type="search" id="deviceInput" placeholder="Rechercher un appareil">
+                        <input type="search" list="device" id="deviceInput" placeholder="Rechercher un appareil" class="filters__listContainer filters__listContainer--device">
                         <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                        <div class="device__listcontainer">
-                            <ul class="filters__btnTaglist filters__btnTaglist--device">
-                                <li class="filters__btnTag filters__btnTag--device"></li>
-                            </ul>
-                        </div>
+                        <datalist id="device">
+                            <option value="1">
+                            <option value="2">
+                            <option value="3">
+                            <option value="4">
+                          </datalist>
                     </div>
                 </div>
                 <div class="filters__ustensils ustensils__container">
@@ -75,13 +77,14 @@
                     </button>
                     <div>
                         <label for="ingredientInput"></label>
-                        <input type="search" id="ustensilInput" placeholder="Rechercher un ustensile">
+                        <input type="search" list="ustensils" id="ustensilInput" placeholder="Rechercher un ustensile" class="filters__listContainer filters__listContainer--ustensils">
                         <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                        <div class="ustensils__listcontainer">
-                            <ul class="filters__btnTaglist filters__btnTaglist--ustensils">
-                                <li class="filters__btnTag filters__btnTag--ustensils"></li>
-                            </ul>
-                        </div>
+                        <datalist id="ustensils">
+                            <option value="1">
+                            <option value="2">
+                            <option value="3">
+                            <option value="4">
+                          </datalist>
                     </div>
                 </div>
             </div>
@@ -414,6 +417,6 @@
             </article>
         </section>
     </main>
-    
+    <script src="/js/recipes.js"></script>
 </body>
 </html>
