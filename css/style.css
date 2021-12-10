@@ -73,8 +73,14 @@ html {
   font-size: 3.6rem;
 }
 
-.filters__tag {
+.filters__btn, .filters__tag {
   font-family: "Lato Bold", sans-serif;
+  color: white;
+}
+.filters__btn {
+  font-size: 1.8rem;
+}
+.filters__tag {
   font-size: 1.4rem;
 }
 
@@ -102,6 +108,11 @@ body {
   margin: 0 auto;
 }
 
+.main__wrapper {
+  width: 1240px;
+  margin: 0 auto;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -113,7 +124,7 @@ body {
 }
 
 .searchBar {
-  width: 1240px;
+  max-width: 1240px;
   margin: 0 auto;
   display: flex;
 }
@@ -121,9 +132,28 @@ body {
   width: 100%;
 }
 
+.filters__taglist {
+  display: flex;
+}
+.filters__containers {
+  display: flex;
+}
+
+.searchBar {
+  background-color: #e6e6e6;
+  height: 70px;
+  margin: 2rem 0;
+  border-radius: 5px;
+}
+.searchBar__input {
+  background-color: #e6e6e6;
+  border: 0;
+  border-radius: 5px;
+}
+
 .recipe__mainContainer {
   width: 1240px;
-  margin: 0 auto;
+  margin: 2rem auto;
   display: -ms-grid;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -132,6 +162,7 @@ body {
   justify-items: center;
 }
 .recipe__picture {
+  border-radius: 5px 5px 0 0;
   width: 380px;
   height: 180px;
   background-color: #c6bebe;
@@ -139,6 +170,7 @@ body {
 .recipe__infoBlock {
   padding: 1rem;
   background-color: #e6e6e6;
+  border-radius: 0 0 5px 5px;
 }
 .recipe__legend {
   display: flex;
@@ -151,6 +183,45 @@ body {
   display: -ms-grid;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding-bottom: 2rem;
+}
+
+.filters__tag {
+  width: fit-content;
+  padding: 0.5rem 2rem;
+  margin: 2rem 1rem 0 0;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+.filters__btn {
+  padding: 10px;
+  margin: 2rem 0 0;
+  background: none;
+  cursor: pointer;
+  border: 0;
+  width: 170px;
+  height: 70px;
+  background-color: lightgreen;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.filters__btn--ingredients {
+  background-color: #3180f6;
+}
+.filters__btn--device {
+  background-color: #68d9a4;
+}
+.filters__btn--ustensils {
+  background-color: #ed6454;
+}
+
+.ico__close {
+  width: 24px;
+  height: 24px;
+  margin-left: 5px;
 }
 
 /*# sourceMappingURL=style.css.map */

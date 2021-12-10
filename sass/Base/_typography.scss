@@ -37,9 +37,16 @@ html {
     }
 }
 .filters {
-     &__tag {
+    &__btn, &__tag{
         font-family: 'Lato Bold', sans-serif;
-        font-size: $font-tag;
+        color: lighten($color-dark, 100%);
+    }
+    &__btn {
+        font-size: $font-text*1.5;
+
+    }
+    &__tag {
+       font-size: $font-tag;
     }
 }
 

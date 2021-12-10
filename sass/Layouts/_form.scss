@@ -1,0 +1,11 @@
+.searchBar {
+    background-color: lighten($color-dark, 90%);
+    height: 70px;
+    margin: 2rem 0;
+    border-radius: 5px;
+    &__input {
+        background-color: lighten($color-dark, 90%);
+        border: 0;
+        border-radius: 5px;
+    }
+}

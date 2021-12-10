@@ -21,56 +21,65 @@
             </form>
             <div class="filters__tags">
                 <ul class="filters__taglist">
-                    <li class="filters__tag ingredients__tag">ingrédient</li>
-                    <li class="filters__tag device__tag">appareil</li>
-                    <li class="filters__tag ustensils__tag">ustensile</li>
+                    <li class="filters__tag filters__btn--ingredients">
+						Ingrédient
+						<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+					</li>
+                    <li class="filters__tag filters__btn--device">
+						Appareil
+						<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+					</li>
+                    <li class="filters__tag filters__btn--ustensils">
+						Ustensile
+						<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+					</li>
                 </ul>
             </div>
             <div class="filters__containers">
                 <div class="filters__ingredients ingredients__container">
-                    <button class="ingredients__btn">
-                        Ingrédient
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ingredients__ico ico__dropDown">
+                    <button class=" filters__btn filters__btn--ingredients">
+                        Ingrédients
+                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
                     </button>
                     <div>
                         <label for="ingredientInput"></label>
                         <input type="search" id="ingredientInput" placeholder="Rechercher un ingrédient">
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ingredients__ico ico__dropUp">
+                        <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
                         <div class="ingredients__listcontainer">
-                            <ul class="ingredients__taglist">
-                                <li class="ingredients__tag"></li>
+                            <ul class="filters__btnTaglist filters__btnTaglist--ingredients">
+                                <li class="filters__btnTag filters__btnTag--ingredients"></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="filters__device device__container">
-                    <button class="device__btn">
-                        Appareil
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="device__ico ico__dropDown">
+                    <button class="filters__btn filters__btn--device">
+                        Appareils
+                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
                     </button>
                     <div>
                         <label for="ingredientInput"></label>
                         <input type="search" id="deviceInput" placeholder="Rechercher un appareil">
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="device__ico ico__dropUp">
+                        <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
                         <div class="device__listcontainer">
-                            <ul class="device__taglist">
-                                <li class="device__tag"></li>
+                            <ul class="filters__btnTaglist filters__btnTaglist--device">
+                                <li class="filters__btnTag filters__btnTag--device"></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="filters__ustensils ustensils__container">
-                    <button class="ustensils__btn">
+                    <button class="filters__btn filters__btn--ustensils">
                         Ustensiles
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ustensils__ico ico__dropDown">
+                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
                     </button>
                     <div>
                         <label for="ingredientInput"></label>
                         <input type="search" id="ustensilInput" placeholder="Rechercher un ustensile">
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ustensils__ico ico__dropUp">
+                        <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
                         <div class="ustensils__listcontainer">
-                            <ul class="ustensils__taglist">
-                                <li class="ustensils__tag"></li>
+                            <ul class="filters__btnTaglist filters__btnTaglist--ustensils">
+                                <li class="filters__btnTag filters__btnTag--ustensils"></li>
                             </ul>
                         </div>
                     </div>

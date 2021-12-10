@@ -1,7 +1,7 @@
 .recipe {
     &__mainContainer {
         width: 1240px;
-        margin: 0 auto;
+        margin: 2rem auto;
         display: -ms-grid;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -10,6 +10,7 @@
         justify-items: center;
     }
     &__picture {
+        border-radius: 5px  5px 0 0;
         width: 380px;
         height: 180px;
         background-color: $secondary-color;
@@ -17,6 +18,7 @@
     &__infoBlock{
         padding: 1rem;
         background-color: lighten($color-dark, 90%);
+        border-radius: 0 0 5px 5px;
     }
     &__legend {
         display: flex;
@@ -29,5 +31,7 @@
         display: -ms-grid;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        padding-bottom: 2rem;
+
     }
 }

@@ -1,0 +1,40 @@
+.filters {
+    &__tag {
+        width: fit-content;
+        padding: 0.5rem 2rem;
+        margin: 2rem 1rem 0 0 ;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
+    &__btn {
+        padding: 10px;
+        margin: 2rem 0 0;
+        background: none;
+        cursor: pointer;
+        border: 0;
+        width: 170px;
+        height: 70px;
+        background-color: lightgreen;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &--ingredients {
+            background-color: $filters-1;
+        }
+        &--device {
+            background-color: $filters-2;
+        }
+        &--ustensils {
+            background-color: $filters-3;
+        }
+    }
+}
+.ico {
+    &__close {
+        width: 24px;
+        height: 24px;
+        margin-left: 5px;
+    }
+}
