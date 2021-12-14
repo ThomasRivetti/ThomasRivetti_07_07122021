@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ThomasRivetti/ThomasRivetti_07_07122021/issues"
   },
-  "homepage": "https://github.com/ThomasRivetti/ThomasRivetti_07_07122021#readme"
+  "homepage": "https://github.com/ThomasRivetti/ThomasRivetti_07_07122021#readme",
+  "devDependencies": {
+    
+  }
 }

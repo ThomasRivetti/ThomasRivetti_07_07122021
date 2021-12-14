@@ -37,3 +37,15 @@
         }
     }
 }
+@media screen and (max-width: 1024px) {
+    .filters {
+        &__taglist {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        &__containers {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+}
