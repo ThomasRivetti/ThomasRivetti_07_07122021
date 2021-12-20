@@ -5,16 +5,34 @@ fetch('./js/API/recipes.json')
         }
     })
     .then(function(value) {
-        recipeCardBuilder(value.recipes);
+        const searchParams = new URLSearchParams(window.location.search);
+        const recipesId = searchParams.get("id");
+        
+        // ingredientsTags(value.ingredient, recipesId);
+        recipeCardBuilder(value.recipes, recipesId);
         recipesArray = value.recipes;
-        console.log(value.recipes);
-
     })
     .catch(function(error) {
         console.error(error);
     });
 
 let recipesArray;
+let ingredientsArray;
+let deviceArray;
+let ustensilsArray;
+
+
+// function ingredientsTags(jsonObj, ing) {
+//     const ingredientsTaglist = document.getElementById("ingredientTaglist");
+//     const ingredients = jsonObj.filter(ingredient => ingredient.recipesId == ing );
+//     // ingredients.forEach(ingredient => {
+//     //     ingredientsTaglist.innerHTML += `
+//     //         <li class="tag--ingredients tag">${ingredient}</li>`
+//     //     });
+            
+        
+// }
+
 
 function recipeCardBuilder(recipes) {
     const recipeCard = document.getElementById("recipeContainer");
@@ -31,23 +49,7 @@ function recipeCardBuilder(recipes) {
                     </div>
                     <div class="recipe__infos">
                         <div class="recipe__ingredients">
-                            <ul class="recipe__ingredList">
-                                <li class="recipe__ingredient">Lait de coco:
-                                    <span class="recipe__quantity"> 400ml</span>
-                                </li>
-                                <li class="recipe__ingredient">Jus de citron:
-                                    <span class="recipe__quantity"> 2</span>
-                                </li>
-                                <li class="recipe__ingredient">Crème de coco: 
-                                    <span class="recipe__quantity"> 4 cuillères</span>
-                                </li>
-                                <li class="recipe__ingredient">Sucre:
-                                    <span class="recipe__quantity"> 20g</span>
-                                </li>
-                                <li class="recipe__ingredient">Glaçons:
-                                    <span class="recipe__quantity"> 2</span>
-                                </li>
-                            </ul>                    
+                            <ul id="recipe-${recipe.id}" class="recipe__ingredList"></ul>
                         </div>
                     <div class="recipe__instructionsBlock">
                         <p class="recipe__instructions">${recipe.description}</p>
@@ -55,6 +57,14 @@ function recipeCardBuilder(recipes) {
                 </div>
             </div>
         </article>`
+        const ingredientList = document.getElementById(`recipe-${recipe.id}`);
+        for (const ingredient of recipe.ingredients) {
+            ingredientList.innerHTML += `
+              <li class="recipe__ingredient">${ingredient.ingredient}:
+                <span class="recipe__quantity">${ingredient.quantity === undefined ? '' : ingredient.quantity}${ingredient.unit === undefined ? '' : ingredient.unit}</span>
+              </li>
+            `
+        }
     }
 }
 

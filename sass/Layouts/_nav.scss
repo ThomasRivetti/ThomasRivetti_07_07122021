@@ -13,19 +13,34 @@
     &__containers {
         display: flex;
     }
+    &__inputContainer {
+        margin-right: 1rem;
+        padding: 1rem;
+        border-radius: 5px;
+        &--ingredients {
+            background-color: $filters-1;
+        }
+        &--device {
+            background-color: $filters-2;
+        }
+        &--ustensils {
+            background-color: $filters-3;
+        }
+    }
+    &__inputField {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
     &__listContainer {
+        width: 100%;
         padding: 10px;
         margin: 2rem 0 0;
         background: none;
         cursor: pointer;
         border: 0;
-        width: 170px;
-        height: 70px;
-        background-color: lightgreen;
         border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        
         &--ingredients {
             background-color: $filters-1;
         }
@@ -47,5 +62,25 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+    }
+}
+
+.tags {
+    &__taglist {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(150px, 1fr));
+        padding: 1rem;
+        gap: 1rem;        
+    }
+}
+.tag {
+    padding: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+        background-color: lighten($color-dark, 100%);
+        border-radius: 5px;
+        transform: scale(1.2);
     }
 }

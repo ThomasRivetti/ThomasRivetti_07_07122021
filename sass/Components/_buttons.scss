@@ -15,7 +15,6 @@
         border: 0;
         width: 170px;
         height: 70px;
-        background-color: lightgreen;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -32,14 +31,19 @@
     }
 }
 .ico {
+    cursor: pointer;
     &__search {
         width: 33px;
         height: 33px;
         margin-right: 2rem;
+
     }
     &__close {
         width: 24px;
         height: 24px;
         margin-left: 1rem;
+    }
+    &__dropUp {
+        transform: rotate(180deg);
     }
 }

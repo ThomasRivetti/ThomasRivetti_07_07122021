@@ -82,6 +82,17 @@ html {
   font-size: 1.8rem;
 }
 
+.filters__listContainer {
+  font-family: "Lato", sans-serif;
+  font-size: 1.8rem;
+}
+.filters__listContainer::placeholder {
+  font-family: "Lato", sans-serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: white;
+  opacity: 0.7;
+}
 .filters__btn, .filters__tag {
   font-family: "Lato Bold", sans-serif;
   color: white;
@@ -112,9 +123,25 @@ html {
   font-size: 1.2rem;
 }
 
+.tag {
+  font-family: "Lato", sans-serif;
+  font-size: 1.8rem;
+  color: white;
+}
+.tag--ingredients:hover {
+  color: #3180f6;
+}
+.tag--device:hover {
+  color: #68d9a4;
+}
+.tag--ustensils:hover {
+  color: #ed6454;
+}
+
 body {
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .main__wrapper {
@@ -156,19 +183,33 @@ body {
 .filters__containers {
   display: flex;
 }
+.filters__inputContainer {
+  margin-right: 1rem;
+  padding: 1rem;
+  border-radius: 5px;
+}
+.filters__inputContainer--ingredients {
+  background-color: #3180f6;
+}
+.filters__inputContainer--device {
+  background-color: #68d9a4;
+}
+.filters__inputContainer--ustensils {
+  background-color: #ed6454;
+}
+.filters__inputField {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .filters__listContainer {
+  width: 100%;
   padding: 10px;
   margin: 2rem 0 0;
   background: none;
   cursor: pointer;
   border: 0;
-  width: 170px;
-  height: 70px;
-  background-color: lightgreen;
   border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 .filters__listContainer--ingredients {
   background-color: #3180f6;
@@ -190,6 +231,25 @@ body {
     justify-content: center;
   }
 }
+.tags__taglist {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.tag {
+  padding: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tag:hover {
+  background-color: white;
+  border-radius: 5px;
+  transform: scale(1.2);
+}
+
 .searchBar {
   background-color: #e6e6e6;
   height: 70px;
@@ -240,6 +300,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-bottom: 2rem;
+  gap: 1rem;
 }
 .recipe__instructionsBlock {
   overflow: auto;
@@ -290,7 +351,6 @@ body {
   border: 0;
   width: 170px;
   height: 70px;
-  background-color: lightgreen;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -306,6 +366,9 @@ body {
   background-color: #ed6454;
 }
 
+.ico {
+  cursor: pointer;
+}
 .ico__search {
   width: 33px;
   height: 33px;
@@ -315,6 +378,9 @@ body {
   width: 24px;
   height: 24px;
   margin-left: 1rem;
+}
+.ico__dropUp {
+  transform: rotate(180deg);
 }
 
 /*# sourceMappingURL=style.css.map */
