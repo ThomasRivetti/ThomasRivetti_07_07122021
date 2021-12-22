@@ -41,7 +41,7 @@ let recipesArray;
 
 function ingredientsListBuilder(ingredients) {
     const ingredientsTaglist = document.getElementById("ingredientsTaglist");
-    let templateIngTaglist;
+    let templateIngTaglist = ``;
     console.log("");
     templateIngTaglist += `
         <li class="tag--ingredients tag">${ingredients}</li>
