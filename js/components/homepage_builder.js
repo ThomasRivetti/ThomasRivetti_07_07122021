@@ -7,31 +7,49 @@ fetch('./js/API/recipes.json')
     .then(function(value) {
         const searchParams = new URLSearchParams(window.location.search);
         const recipesId = searchParams.get("id");
-        
-        // ingredientsTags(value.ingredient, recipesId);
+       
+        ingredientsListBuilder(value.ingredients);
         recipeCardBuilder(value.recipes, recipesId);
         recipesArray = value.recipes;
+
+        let allIng = [];
+        let allAppliances = [];
+        let allUstensils = [];
+        value.recipes.forEach((e) => {
+            e.ingredients.forEach((el) => {
+                if(allIng.indexOf(el.ingredient) == -1) {
+                    allIng.push(el.ingredient);
+                }
+            });
+            if(allAppliances.indexOf(e.appliance) == -1) {
+                allAppliances.push(e.appliance);
+            }
+            e.ustensils.forEach((el) => {
+                if(allUstensils.indexOf(el) == -1) {
+                    allUstensils.push(el);
+                }
+            })
+        });
+        
+    console.log(allIng, allAppliances, allUstensils);
     })
     .catch(function(error) {
         console.error(error);
     });
 
 let recipesArray;
-let ingredientsArray;
-let deviceArray;
-let ustensilsArray;
 
+function ingredientsListBuilder(ingredients) {
+    const ingredientsTaglist = document.getElementById("ingredientsTaglist");
+    let templateIngTaglist;
+    console.log("");
+    templateIngTaglist += `
+        <li class="tag--ingredients tag">${ingredients}</li>
+        `;
 
-// function ingredientsTags(jsonObj, ing) {
-//     const ingredientsTaglist = document.getElementById("ingredientTaglist");
-//     const ingredients = jsonObj.filter(ingredient => ingredient.recipesId == ing );
-//     // ingredients.forEach(ingredient => {
-//     //     ingredientsTaglist.innerHTML += `
-//     //         <li class="tag--ingredients tag">${ingredient}</li>`
-//     //     });
-            
-        
-// }
+    ingredientsTaglist.innerHTML = templateIngTaglist; 
+}
+
 
 
 function recipeCardBuilder(recipes) {
