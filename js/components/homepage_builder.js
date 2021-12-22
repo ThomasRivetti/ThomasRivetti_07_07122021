@@ -7,31 +7,39 @@ fetch('./js/API/recipes.json')
     .then(function(value) {
         const searchParams = new URLSearchParams(window.location.search);
         const recipesId = searchParams.get("id");
-       
-        ingredientsListBuilder(value.ingredients);
+        
+        //affiche les recettes
         recipeCardBuilder(value.recipes, recipesId);
         recipesArray = value.recipes;
 
+        //récupération des tableaux contenant:
         let allIng = [];
         let allAppliances = [];
         let allUstensils = [];
         value.recipes.forEach((e) => {
+            //ingrédients
             e.ingredients.forEach((el) => {
                 if(allIng.indexOf(el.ingredient) == -1) {
                     allIng.push(el.ingredient);
                 }
             });
+            //appareils
             if(allAppliances.indexOf(e.appliance) == -1) {
                 allAppliances.push(e.appliance);
             }
+            //ustensiles
             e.ustensils.forEach((el) => {
                 if(allUstensils.indexOf(el) == -1) {
                     allUstensils.push(el);
                 }
             })
         });
+
+        //affiche les tags des champs ingredients, appareils et ustensils
+        showTags(allIng, 'ingredientsTaglist', 'ingredients');
+        showTags(allAppliances, 'devicesTaglist', 'device');
+        showTags(allUstensils, 'ustensilsTaglist', 'ustensils');
         
-    console.log(allIng, allAppliances, allUstensils);
     })
     .catch(function(error) {
         console.error(error);
@@ -39,19 +47,20 @@ fetch('./js/API/recipes.json')
 
 let recipesArray;
 
-function ingredientsListBuilder(ingredients) {
-    const ingredientsTaglist = document.getElementById("ingredientsTaglist");
-    let templateIngTaglist = ``;
-    console.log("");
-    templateIngTaglist += `
-        <li class="tag--ingredients tag">${ingredients}</li>
-        `;
 
-    ingredientsTaglist.innerHTML = templateIngTaglist; 
+//fonction générique pour afficher dynamiquement les listes des ingredients, appareils et ustensiles
+function showTags(items, tagId, type) {
+    const tag = document.getElementById(tagId);
+    let templateTaglist = ``;
+    for (const item  of items) {
+        templateTaglist += `
+        <li class="tag--${type} tag">${item}</li>
+        `;
+    }
+    tag.innerHTML = templateTaglist;
 }
 
-
-
+// fonction qui génère les cartes des recettes dynamiquement
 function recipeCardBuilder(recipes) {
     const recipeCard = document.getElementById("recipeContainer");
     recipeCard.innerHTML = '';
