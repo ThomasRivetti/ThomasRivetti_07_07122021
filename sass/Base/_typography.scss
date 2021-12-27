@@ -97,13 +97,16 @@ html {
     font-size: $font-text*1.5;
     color: white;
     
-    &--ingredients:hover {
+    &--ingredients:hover, 
+    &--ingredients.is-selected {
         color: $filters-1;
     }
-    &--device:hover {
+    &--device:hover,
+    &--device.is-selected {
         color: $filters-2;
     }
-    &--ustensils:hover {
+    &--ustensils:hover,
+    &--ustensils.is-selected {
         color: $filters-3;
     }
 }

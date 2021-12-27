@@ -134,13 +134,13 @@ html {
   font-size: 1.8rem;
   color: white;
 }
-.tag--ingredients:hover {
+.tag--ingredients:hover, .tag--ingredients.is-selected {
   color: #3180f6;
 }
-.tag--device:hover {
+.tag--device:hover, .tag--device.is-selected {
   color: #68d9a4;
 }
-.tag--ustensils:hover {
+.tag--ustensils:hover, .tag--ustensils.is-selected {
   color: #ed6454;
 }
 
@@ -188,16 +188,17 @@ body {
 }
 .filters__mainContainers {
   display: flex;
+  margin: 2rem 0;
 }
 .filters__container {
   margin-right: 1rem;
   max-width: 670px;
+  flex: 0 1 170px;
 }
 .filters__form {
   display: flex;
   align-items: center;
   height: 70px;
-  min-width: 170px;
   width: 100%;
 }
 .filters__input {
@@ -267,6 +268,11 @@ body {
   display: flex;
 }
 
+.is-selected {
+  background-color: white;
+  border-radius: 5px;
+}
+
 .formExpanded {
   width: 97%;
 }
@@ -276,9 +282,12 @@ body {
     justify-content: center;
     flex-wrap: wrap;
   }
-  .filters__containers {
+  .filters__mainContainers {
     flex-wrap: wrap;
     justify-content: center;
+  }
+  .filters__container {
+    flex-shrink: 0;
   }
 }
 .tags__taglist {
@@ -294,12 +303,11 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-transform: capitalize;
 }
 .tag:hover {
   background-color: white;
   border-radius: 5px;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .searchBar {
@@ -396,7 +404,7 @@ body {
 .filters__tag {
   width: fit-content;
   padding: 0.5rem 2rem;
-  margin: 2rem 1rem 2rem 0;
+  margin: 2rem 1rem 0 0;
   border-radius: 5px;
   display: flex;
   align-items: center;

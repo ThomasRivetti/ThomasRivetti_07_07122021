@@ -1,3 +1,8 @@
+let allIng = [];
+let allAppliances = [];
+let allUstensils = [];
+let recipesArray;
+
 fetch('./js/API/recipes.json') 
     .then(function(response) {
         if (response.ok) {
@@ -13,9 +18,7 @@ fetch('./js/API/recipes.json')
         recipesArray = value.recipes;
 
         //récupération des tableaux contenant:
-        let allIng = [];
-        let allAppliances = [];
-        let allUstensils = [];
+        
         value.recipes.forEach((e) => {
             //ingrédients
             e.ingredients.forEach((el) => {
@@ -39,39 +42,60 @@ fetch('./js/API/recipes.json')
         showTags(allIng, 'ingredientsTaglist', 'ingredients');
         showTags(allAppliances, 'devicesTaglist', 'device');
         showTags(allUstensils, 'ustensilsTaglist', 'ustensils');
-        
     })
     .catch(function(error) {
         console.error(error);
     });
-
-let recipesArray;
-
 
 //fonction générique pour afficher dynamiquement les listes des ingredients, appareils et ustensiles
 function showTags(items, tagId, type) {
     const tag = document.getElementById(tagId);
     let templateTaglist = ``;
     for (const item  of items) {
+        let properItemCase = item[0].toUpperCase() + item.toLowerCase().slice(1);
         templateTaglist += `
-        <li class="tag--${type} tag"><button onclick="addFilter(this);">${item}</button></li>`;
+        <li><button class="tag--${type} tag" data-type="${type}" data-item="${item}">${properItemCase}</button></li>`;
     }
     tag.innerHTML = templateTaglist;
+    const tags = tag.querySelectorAll(".tag")
+    const tagsBtn = document.getElementById("tagsBtn")
+    tags.forEach((tag) => {
+        tag.addEventListener('click', function(event) {
+            //affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
+            const type = event.target.dataset.type;
+            const value = event.target.dataset.item;
+            if(!event.target.classList.contains("is-selected") && type !== undefined && value !== undefined){                
+                let templateTag = ``;
+                let properValueCase = value[0].toUpperCase() + value.toLowerCase().slice(1);
+                console.log(value, type)
+                templateTag += `
+                <li>
+                <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
+                    ${properValueCase}
+                    <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+                </button>
+                </li>
+                `;
+                tagsBtn.innerHTML += templateTag;
+                event.target.classList.add("is-selected");
+            }
+        })
+    })  
 }
 
-function addFilter(item){
-    console.log(item);
-    /* au clic sur le btn des tags: ajoute 
-    */
+// enleve le tag ajouté suite à la selection dans la liste et enleve la classe is-selected quand on le ferme.
+window.removeFilter = (filter) => { 
+    filter.parentElement.remove();
+    let unselectValue = filter.getAttribute("data-controls");
+    document.querySelector("[data-item='" + unselectValue + "']").classList.remove("is-selected");
+};
 
-}
-
-const ingBtn = document.getElementById("ingBtn");
-const devBtn = document.getElementById("devBtn");
-const ustBtn = document.getElementById("ustBtn");
-const ingContainer = document.getElementById("ingredientsContainer");
-const devContainer = document.getElementById("deviceContainer");
-const ustContainer = document.getElementById("ustensilsContainer");
+// const ingBtn = document.getElementById("ingBtn");
+// const devBtn = document.getElementById("devBtn");
+// const ustBtn = document.getElementById("ustBtn");
+// const ingContainer = document.getElementById("ingredientsContainer");
+// const devContainer = document.getElementById("deviceContainer");
+// const ustContainer = document.getElementById("ustensilsContainer");
 
 document.querySelectorAll(".filters__dropDown").forEach(btn => btn.addEventListener("click",function(event){
     event.preventDefault();
@@ -80,7 +104,6 @@ document.querySelectorAll(".filters__dropDown").forEach(btn => btn.addEventListe
 
 //fonction ouverture container des tags au clic sur le dropdown
 function openTaglist(idContainer) {
-    console.log(idContainer)
     let tagContainer = document.getElementById(idContainer);
     const filtersForm = tagContainer.previousElementSibling;
     const icoDropDown = filtersForm.querySelector(".ico");
