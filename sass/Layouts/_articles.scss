@@ -34,11 +34,14 @@
         padding-bottom: 2rem;
         gap: 1rem;
     }
+    &__instructions {
+        padding-right: 1rem;
+    }
     &__instructionsBlock {
         overflow: auto;
         text-overflow: ellipsis;
         height: 110px;
-        scrollbar-color: $secondary-color green;
+        scrollbar-color: lighten($primary-color, 20%) $secondary-color;
         scrollbar-width: thin;
         &::-webkit-scrollbar-track {
             box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -56,6 +59,7 @@
 	        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 	        background-color: lighten($primary-color, 20%);
         }
+        
     }
 }
 @media screen and (max-width: 1024px) {

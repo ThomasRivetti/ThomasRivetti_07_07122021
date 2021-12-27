@@ -16,6 +16,13 @@ button, input, select {
   margin: 0;
 }
 
+button {
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+
 html {
   box-sizing: border-box;
 }
@@ -85,13 +92,12 @@ html {
 .filters__listContainer {
   font-family: "Lato", sans-serif;
   font-size: 1.8rem;
+  color: white;
 }
 .filters__listContainer::placeholder {
-  font-family: "Lato", sans-serif;
+  font-family: "Lato Bold", sans-serif;
   font-size: 1.8rem;
-  font-style: italic;
   color: white;
-  opacity: 0.7;
 }
 .filters__btn, .filters__tag {
   font-family: "Lato Bold", sans-serif;
@@ -180,21 +186,38 @@ body {
 .filters__taglist {
   display: flex;
 }
-.filters__containers {
+.filters__mainContainers {
   display: flex;
 }
-.filters__inputContainer {
+.filters__container {
   margin-right: 1rem;
-  padding: 1rem;
+  max-width: 670px;
+}
+.filters__form {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  min-width: 170px;
+  width: 100%;
+}
+.filters__input {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+}
+.filters__inputContainer {
+  display: none;
+  padding: 2rem 2rem 1rem 1rem;
   border-radius: 5px;
   max-height: 400px;
-  overflow: auto;
-  scrollbar-color: #c6bebe green;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-color: #666666 #c6bebe;
   scrollbar-width: thin;
 }
 .filters__inputContainer::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   background-color: #F5F5F5;
 }
 .filters__inputContainer::-webkit-scrollbar {
@@ -202,7 +225,7 @@ body {
   background-color: #F5F5F5;
 }
 .filters__inputContainer::-webkit-scrollbar-thumb {
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: gray;
 }
@@ -223,11 +246,12 @@ body {
 .filters__listContainer {
   width: 100%;
   padding: 10px;
-  margin: 2rem 0 0;
   background: none;
   cursor: pointer;
   border: 0;
-  border-radius: 5px;
+}
+.filters__listContainer:focus-visible {
+  outline: 0;
 }
 .filters__listContainer--ingredients {
   background-color: #3180f6;
@@ -237,6 +261,14 @@ body {
 }
 .filters__listContainer--ustensils {
   background-color: #ed6454;
+}
+
+.is-expanded {
+  display: flex;
+}
+
+.formExpanded {
+  width: 97%;
 }
 
 @media screen and (max-width: 1024px) {
@@ -253,6 +285,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, minmax(150px, 1fr));
   padding: 1rem;
+  padding-left: 2rem;
   gap: 1rem;
 }
 
@@ -261,6 +294,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
 }
 .tag:hover {
   background-color: white;
@@ -271,7 +305,7 @@ body {
 .searchBar {
   background-color: #e6e6e6;
   height: 70px;
-  margin: 2rem 0;
+  margin: 2rem 0 0;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -283,6 +317,9 @@ body {
 }
 .searchBar__input:focus-visible {
   outline: none;
+}
+.searchBar__input::placeholder {
+  padding-left: 2rem;
 }
 
 .recipe__mainContainer {
@@ -320,11 +357,14 @@ body {
   padding-bottom: 2rem;
   gap: 1rem;
 }
+.recipe__instructions {
+  padding-right: 1rem;
+}
 .recipe__instructionsBlock {
   overflow: auto;
   text-overflow: ellipsis;
   height: 110px;
-  scrollbar-color: #c6bebe green;
+  scrollbar-color: #e59e9e #c6bebe;
   scrollbar-width: thin;
 }
 .recipe__instructionsBlock::-webkit-scrollbar-track {
@@ -361,14 +401,15 @@ body {
   display: flex;
   align-items: center;
 }
-.filters__btn {
-  padding: 10px;
-  margin: 2rem 1rem 0 0;
+.filters__dropDown {
+  width: 40px;
+  height: 70px;
   background: none;
   cursor: pointer;
   border: 0;
-  width: 170px;
-  height: 70px;
+  border-radius: 0 5px 5px 0;
+}
+.filters__btn {
   border-radius: 5px;
   display: flex;
   align-items: center;

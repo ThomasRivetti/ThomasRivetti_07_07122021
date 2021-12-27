@@ -34,7 +34,7 @@ fetch('./js/API/recipes.json')
                 }
             })
         });
-
+        
         //affiche les tags des champs ingredients, appareils et ustensils
         showTags(allIng, 'ingredientsTaglist', 'ingredients');
         showTags(allAppliances, 'devicesTaglist', 'device');
@@ -54,10 +54,46 @@ function showTags(items, tagId, type) {
     let templateTaglist = ``;
     for (const item  of items) {
         templateTaglist += `
-        <li class="tag--${type} tag">${item}</li>
-        `;
+        <li class="tag--${type} tag"><button onclick="addFilter(this);">${item}</button></li>`;
     }
     tag.innerHTML = templateTaglist;
+}
+
+function addFilter(item){
+    console.log(item);
+    /* au clic sur le btn des tags: ajoute 
+    */
+
+}
+
+const ingBtn = document.getElementById("ingBtn");
+const devBtn = document.getElementById("devBtn");
+const ustBtn = document.getElementById("ustBtn");
+const ingContainer = document.getElementById("ingredientsContainer");
+const devContainer = document.getElementById("deviceContainer");
+const ustContainer = document.getElementById("ustensilsContainer");
+
+document.querySelectorAll(".filters__dropDown").forEach(btn => btn.addEventListener("click",function(event){
+    event.preventDefault();
+    openTaglist(btn.getAttribute("aria-controls"))
+} ));
+
+//fonction ouverture container des tags au clic sur le dropdown
+function openTaglist(idContainer) {
+    console.log(idContainer)
+    let tagContainer = document.getElementById(idContainer);
+    const filtersForm = tagContainer.previousElementSibling;
+    const icoDropDown = filtersForm.querySelector(".ico");
+    if (tagContainer.classList.contains("is-expanded")) {
+        tagContainer.classList.remove("is-expanded");
+        icoDropDown.classList.replace("ico__dropUp", "ico__dropDown");
+    } else {
+        if (document.querySelector(".filters__inputContainer.is-expanded") != null) {
+            document.querySelector(".filters__inputContainer.is-expanded").classList.remove("is-expanded");
+        }  
+        tagContainer.classList.add("is-expanded");
+        icoDropDown.classList.replace("ico__dropDown", "ico__dropUp");
+    }  
 }
 
 // fonction qui génère les cartes des recettes dynamiquement

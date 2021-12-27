@@ -7,14 +7,15 @@
         display: flex;
         align-items: center;
     }
-    &__btn {
-        padding: 10px;
-        margin: 2rem 1rem 0 0;
+    &__dropDown{
+        width: 40px;
+        height: 70px;
         background: none;
         cursor: pointer;
         border: 0;
-        width: 170px;
-        height: 70px;
+        border-radius: 0 5px 5px 0;
+    }
+    &__btn {
         border-radius: 5px;
         display: flex;
         align-items: center;

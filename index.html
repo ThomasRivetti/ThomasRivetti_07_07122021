@@ -1,102 +1,110 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css">
     <title>Les Petits Plats</title>
-</head>
-<body>
+  </head>
+  <body>
     <header class="header">
-        <img src="/assets/img/logo_LPP.svg" alt="logo Les petits plats" class="header__logo">
-        <h1 class="header__title">Les petits plats</h1>
+      <img src="/assets/img/logo_LPP.svg" alt="logo Les petits plats" class="header__logo">
+      <h1 class="header__title">Les petits plats</h1>
     </header>
     <main class="main__wrapper">
-        <section class="filters__mainContainer">
-            <form action="" method="get" class="searchBar">
-                <label for="search" class="searchBar__form"></label>
-                <input type="search" name="search" id="search" class="searchBar__input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
-                <img src="/assets/img/ico/ico_search.svg" alt="search" class="searchBar__ico ico__search">
+      <section class="filters__mainContainer">
+        <form action="" method="get" class="searchBar">
+          <label for="search" class="searchBar__form"></label>
+          <input type="search" name="search" id="search" class="searchBar__input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette">
+          <img src="/assets/img/ico/ico_search.svg" alt="search" class="searchBar__ico ico__search">
+        </form>
+        <div class="filters__tags">
+          <ul class="filters__taglist">
+            <li>
+
+              <button class="filters__tag filters__btn filters__btn--ingredients">
+                 Ingrédient
+                <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+              </button>
+            </li>
+            <li class="filters__tag filters__btn--device">
+              Appareil
+              <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+            </li>
+            <li class="filters__tag filters__btn--ustensils">
+              Ustensile
+              <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+            </li>
+          </ul>
+        </div>
+        <div class="filters__mainContainers">
+          <div class="filters__container">
+            <form class="filters__form filters__form--ing">
+              <input class="filters__listContainer filters__listContainer--ingredients filters__input" placeholder="Ingrédients" type="search">
+              <button id="ingBtn" class=" filters__dropDown filters__btn--ingredients" aria-controls="ingredientsContainer">
+              <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
+              </button>
             </form>
-            <div class="filters__tags">
-                <ul class="filters__taglist">
-                    <li class="filters__tag filters__btn--ingredients">
-						Ingrédient
-						<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-					</li>
-                    <li class="filters__tag filters__btn--device">
-						Appareil
-						<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-					</li>
-                    <li class="filters__tag filters__btn--ustensils">
-						Ustensile
-						<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-					</li>
+            <div id="ingredientsContainer" class="filters__inputContainer filters__inputContainer--ingredients">
+              <!-- <div class="filters__inputField">
+                <label for="ingredientInput"></label>
+                <input type="search" list="ingredients" id="ingredientInput" placeholder="Rechercher un ingrédient" class="filters__listContainer filters__listContainer--ingredients">
+                <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
+                </div> -->
+              <div id="ingredientsTagsContainer" class="tags__container tags__container--ingredients">
+                <ul id="ingredientsTaglist" class="tags__taglist tags__taglist--ingredients ">
+                  <!-- chargé dynamiquement -->
                 </ul>
+              </div>
             </div>
-            <div class="filters__containers">
-                <div class="filters__ingredients ingredients__container">
-                    <button class=" filters__btn filters__btn--ingredients">
-                        Ingrédients
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
-                    </button>
-                    <div class="filters__inputContainer filters__inputContainer--ingredients">
-                        <div class="filters__inputField">
-                            <label for="ingredientInput"></label>
-                            <input type="search" list="ingredients" id="ingredientInput" placeholder="Rechercher un ingrédient" class="filters__listContainer filters__listContainer--ingredients">
-                            <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                        </div>
-                        <div id="ingredientsTagsContainer" class="tags__container tags__container--ingredients">
-                            <ul id="ingredientsTaglist" class="tags__taglist tags__taglist--ingredients ">
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="filters__device device__container">
-                    <button class="filters__btn filters__btn--device">
-                        Appareils
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
-                    </button>
-                    <div class="filters__inputContainer filters__inputContainer--device">
-                        <div class="filters__inputField">
-                            <label for="deviceInput"></label>
-                            <input type="search" list="device" id="deviceInput" placeholder="Rechercher un appareil" class="filters__listContainer filters__listContainer--device">
-                            <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                        </div>
-                        <div id="devicesTagsContainer" class="tags__container tags__container--device">
-                            <ul id="devicesTaglist" class="tags__taglist tags__taglist--device">
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="filters__ustensils ustensils__container">
-                    <button class="filters__btn filters__btn--ustensils">
-                        Ustensiles
-                        <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
-                    </button>
-                    <div class="filters__inputContainer filters__inputContainer--ustensils">
-                        <div class="filters__inputField">
-                            <label for="ustensilInput"></label>
-                            <input type="search" list="ustensils" id="ustensilInput" placeholder="Rechercher un ustensile" class="filters__listContainer filters__listContainer--ustensils">
-                            <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                        </div>
-                        <div id="ustensilsTagsContainer" class="tags__container tags__container--ustensils">
-                            <ul id="ustensilsTaglist" class="tags__taglist tags__taglist--ustensils">
-                                
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+          </div>
+          <div class="filters__container">
+            <form class="filters__form filters__form--dev">
+              <input class="filters__listContainer filters__listContainer--device filters__input" placeholder="Appareils" type="search">
+              <button id="devBtn" class="filters__dropDown filters__btn--device" aria-controls="deviceContainer">
+              <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
+              </button>
+            </form>
+            <div id="deviceContainer" class="filters__inputContainer filters__inputContainer--device">
+              <!-- <div class="filters__inputField">
+                <label for="deviceInput"></label>
+                <input type="search" list="device" id="deviceInput" placeholder="Rechercher un appareil" class="filters__listContainer filters__listContainer--device">
+                <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
+                </div> -->
+              <div id="devicesTagsContainer" class="tags__container tags__container--device">
+                <ul id="devicesTaglist" class="tags__taglist tags__taglist--device">
+                  <!-- chargé dynamiquement -->
+                </ul>
+              </div>
             </div>
-            
-        </section>
-        <section id="recipeContainer" class="recipe__mainContainer">
-         <!-- chargé dynamiquement HOMEPAGEBUILDER -->
-        </section>
+          </div>
+          <div class="filters__container">
+            <form class="filters__form filters__form--ust">
+              <input class="filters__listContainer filters__listContainer--ustensils filters__input" placeholder="Ustensiles" type="search">
+              <button id="ustBtn" class=" filters__dropDown filters__btn--ustensils" aria-controls="ustensilsContainer">
+              <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
+              </button>
+            </form>
+            <div id="ustensilsContainer" class="filters__inputContainer filters__inputContainer--ustensils">
+              <!-- <div class="filters__inputField">
+                <label for="ustensilInput"></label>
+                <input type="search" list="ustensils" id="ustensilInput" placeholder="Rechercher un ustensile" class="filters__listContainer filters__listContainer--ustensils">
+                <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
+                </div> -->
+              <div id="ustensilsTagsContainer" class="tags__container tags__container--ustensils">
+                <ul id="ustensilsTaglist" class="tags__taglist tags__taglist--ustensils">
+                  <!-- chargé dynamiquement -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="recipeContainer" class="recipe__mainContainer">
+        <!-- chargé dynamiquement HOMEPAGEBUILDER -->
+      </section>
     </main>
     <script type="module" src="/js/components/homepage_builder.js"></script>
-</body>
+  </body>
 </html>
