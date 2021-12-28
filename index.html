@@ -21,37 +21,19 @@
         </form>
         <div class="filters__tags">
           <ul id="tagsBtn" class="filters__taglist">
-            <!-- <li>
-
-              <button class="filters__tag filters__btn filters__btn--ingredients">
-                 Ingrédient
-                <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-              </button>
-            </li>
-            <li class="filters__tag filters__btn--device">
-              Appareil
-              <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-            </li>
-            <li class="filters__tag filters__btn--ustensils">
-              Ustensile
-              <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-            </li> -->
+            <!-- chargé dynamiquement -->
           </ul>
         </div>
         <div class="filters__mainContainers">
           <div class="filters__container">
             <form class="filters__form filters__form--ing">
-              <input class="filters__listContainer filters__listContainer--ingredients filters__input" placeholder="Ingrédients" type="search">
+              <input class="filters__listContainer filters__listContainer--ingredients filters__input" placeholder="Ingrédients" type="search" data-search="ingredients">
               <button id="ingBtn" class=" filters__dropDown filters__btn--ingredients" aria-controls="ingredientsContainer">
               <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
               </button>
             </form>
             <div id="ingredientsContainer" class="filters__inputContainer filters__inputContainer--ingredients">
-              <!-- <div class="filters__inputField">
-                <label for="ingredientInput"></label>
-                <input type="search" list="ingredients" id="ingredientInput" placeholder="Rechercher un ingrédient" class="filters__listContainer filters__listContainer--ingredients">
-                <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                </div> -->
+              <!-- chargé dynamiquement -->
               <div id="ingredientsTagsContainer" class="tags__container tags__container--ingredients">
                 <ul id="ingredientsTaglist" class="tags__taglist tags__taglist--ingredients ">
                   <!-- chargé dynamiquement -->
@@ -61,17 +43,13 @@
           </div>
           <div class="filters__container">
             <form class="filters__form filters__form--dev">
-              <input class="filters__listContainer filters__listContainer--device filters__input" placeholder="Appareils" type="search">
+              <input class="filters__listContainer filters__listContainer--device filters__input" placeholder="Appareils" type="search" data-search="devices">
               <button id="devBtn" class="filters__dropDown filters__btn--device" aria-controls="deviceContainer">
               <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
               </button>
             </form>
             <div id="deviceContainer" class="filters__inputContainer filters__inputContainer--device">
-              <!-- <div class="filters__inputField">
-                <label for="deviceInput"></label>
-                <input type="search" list="device" id="deviceInput" placeholder="Rechercher un appareil" class="filters__listContainer filters__listContainer--device">
-                <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                </div> -->
+              <!-- chargé dynamiquement -->
               <div id="devicesTagsContainer" class="tags__container tags__container--device">
                 <ul id="devicesTaglist" class="tags__taglist tags__taglist--device">
                   <!-- chargé dynamiquement -->
@@ -81,17 +59,13 @@
           </div>
           <div class="filters__container">
             <form class="filters__form filters__form--ust">
-              <input class="filters__listContainer filters__listContainer--ustensils filters__input" placeholder="Ustensiles" type="search">
+              <input class="filters__listContainer filters__listContainer--ustensils filters__input" placeholder="Ustensiles" type="search" data-search="ustensils">
               <button id="ustBtn" class=" filters__dropDown filters__btn--ustensils" aria-controls="ustensilsContainer">
               <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
               </button>
             </form>
             <div id="ustensilsContainer" class="filters__inputContainer filters__inputContainer--ustensils">
-              <!-- <div class="filters__inputField">
-                <label for="ustensilInput"></label>
-                <input type="search" list="ustensils" id="ustensilInput" placeholder="Rechercher un ustensile" class="filters__listContainer filters__listContainer--ustensils">
-                <img src="/assets/img/ico/ico_chevron.svg" alt="close dropdown" class="ico ico__dropUp">
-                </div> -->
+              <!-- chargé dynamiquement -->
               <div id="ustensilsTagsContainer" class="tags__container tags__container--ustensils">
                 <ul id="ustensilsTaglist" class="tags__taglist tags__taglist--ustensils">
                   <!-- chargé dynamiquement -->
@@ -105,6 +79,6 @@
         <!-- chargé dynamiquement HOMEPAGEBUILDER -->
       </section>
     </main>
-    <script type="module" src="/js/components/homepage_builder.js"></script>
+    <script src="/js/components/homepage_builder.js"></script>
   </body>
 </html>

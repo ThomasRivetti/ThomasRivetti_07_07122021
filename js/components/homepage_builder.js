@@ -1,5 +1,5 @@
 let allIng = [];
-let allAppliances = [];
+let allDevices = [];
 let allUstensils = [];
 let recipesArray;
 
@@ -27,8 +27,8 @@ fetch('./js/API/recipes.json')
                 }
             });
             //appareils
-            if(allAppliances.indexOf(e.appliance) == -1) {
-                allAppliances.push(e.appliance);
+            if(allDevices.indexOf(e.appliance) == -1) {
+                allDevices.push(e.appliance);
             }
             //ustensiles
             e.ustensils.forEach((el) => {
@@ -40,21 +40,50 @@ fetch('./js/API/recipes.json')
         
         //affiche les tags des champs ingredients, appareils et ustensils
         showTags(allIng, 'ingredientsTaglist', 'ingredients');
-        showTags(allAppliances, 'devicesTaglist', 'device');
+        showTags(allDevices, 'devicesTaglist', 'device');
         showTags(allUstensils, 'ustensilsTaglist', 'ustensils');
     })
     .catch(function(error) {
         console.error(error);
     });
+// filtrer les elements dans les listes en fonction des valeurs saisies dans les inputs 
+const filtersInput = document.querySelectorAll(".filters__input");
+filtersInput.forEach((input) => {
+    input.addEventListener("keyup", function(event) {
+        if (event.target.value.length > 0){
+            event.target.parentElement.nextElementSibling.classList.add("is-expanded");
+        } else {
+            event.target.parentElement.nextElementSibling.classList.remove("is-expanded");
+        }
+        switch(event.target.dataset.search){
+            case "ingredients":
+                showTags(allIng.filter(ing => ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1),'ingredientsTaglist', 'ingredients');
+                console.log("case ingredients");
+                break;
+            case "devices":
+                showTags(allDevices.filter(device => device.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1), 'devicesTaglist', 'device');
+                console.log("case devices");
+                break;
+            case "ustensils":
+                showTags(allUstensils.filter(ustensil => ustensil.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1),'ustensilsTaglist', 'ustensils');
+                console.log("case ustensils")
+                break;
+            default:
+                console.log("erreur")
+        }
+            
+    })
+})
 
 //fonction générique pour afficher dynamiquement les listes des ingredients, appareils et ustensiles
 function showTags(items, tagId, type) {
+    console.log(items);
     const tag = document.getElementById(tagId);
     let templateTaglist = ``;
     for (const item  of items) {
         let properItemCase = item[0].toUpperCase() + item.toLowerCase().slice(1);
         templateTaglist += `
-        <li><button class="tag--${type} tag" data-type="${type}" data-item="${item}">${properItemCase}</button></li>`;
+        <li><button aria-label="${properItemCase}" title="${properItemCase}" class="tag--${type} tag" data-type="${type}" data-item="${item}">${properItemCase}</button></li>`;
     }
     tag.innerHTML = templateTaglist;
     const tags = tag.querySelectorAll(".tag")
@@ -119,6 +148,7 @@ function openTaglist(idContainer) {
     }  
 }
 
+
 // fonction qui génère les cartes des recettes dynamiquement
 function recipeCardBuilder(recipes) {
     const recipeCard = document.getElementById("recipeContainer");
@@ -154,3 +184,4 @@ function recipeCardBuilder(recipes) {
     }
 }
 
+console.log(allIng);
