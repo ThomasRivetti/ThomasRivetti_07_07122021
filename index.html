@@ -27,7 +27,7 @@
         <div class="filters__mainContainers">
           <div class="filters__container">
             <form class="filters__form filters__form--ing">
-              <input class="filters__listContainer filters__listContainer--ingredients filters__input" placeholder="Ingrédients" type="search" data-search="ingredients">
+              <input class="filters__listContainer filters__listContainer--ingredients filters__input" placeholder="Ingrédients" type="search" data-search="ingredients" data-placeholder="Recherchez un ingrédient...">
               <button id="ingBtn" class=" filters__dropDown filters__btn--ingredients" aria-controls="ingredientsContainer">
               <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
               </button>
@@ -43,7 +43,7 @@
           </div>
           <div class="filters__container">
             <form class="filters__form filters__form--dev">
-              <input class="filters__listContainer filters__listContainer--device filters__input" placeholder="Appareils" type="search" data-search="devices">
+              <input class="filters__listContainer filters__listContainer--device filters__input" placeholder="Appareils" type="search" data-search="devices" data-placeholder="Recherchez un appareil...">
               <button id="devBtn" class="filters__dropDown filters__btn--device" aria-controls="deviceContainer">
               <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
               </button>
@@ -59,7 +59,7 @@
           </div>
           <div class="filters__container">
             <form class="filters__form filters__form--ust">
-              <input class="filters__listContainer filters__listContainer--ustensils filters__input" placeholder="Ustensiles" type="search" data-search="ustensils">
+              <input class="filters__listContainer filters__listContainer--ustensils filters__input" placeholder="Ustensiles" type="search" data-search="ustensils" data-placeholder="Recherchez un ustensile...">
               <button id="ustBtn" class=" filters__dropDown filters__btn--ustensils" aria-controls="ustensilsContainer">
               <img src="/assets/img/ico/ico_chevron.svg" alt="dropdown" class="ico ico__dropDown">
               </button>
@@ -74,6 +74,13 @@
             </div>
           </div>
         </div>
+        <div id="filtersMessage" class="filters__messageContainer">
+          <p id="showMessage" class="filters__message">Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.</p>
+          <button id="closeMessage" class="filters__btn--close">
+            <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
+          </button>
+        </div>
+        
       </section>
       <section id="recipeContainer" class="recipe__mainContainer">
         <!-- chargé dynamiquement HOMEPAGEBUILDER -->

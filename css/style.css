@@ -109,6 +109,10 @@ html {
 .filters__tag {
   font-size: 1.4rem;
 }
+.filters__message {
+  font-family: "Lato", sans-serif;
+  font-size: 1.4rem;
+}
 
 .recipe__name {
   font-size: 1.8rem;
@@ -191,7 +195,7 @@ body {
   margin: 2rem 0;
 }
 .filters__container {
-  margin-right: 1rem;
+  margin: 0 1rem 1rem 0;
   max-width: 670px;
   flex: 0 1 170px;
 }
@@ -202,7 +206,6 @@ body {
   width: 100%;
 }
 .filters__input {
-  width: 100%;
   height: 100%;
   border-radius: 5px 0 0 5px;
 }
@@ -263,6 +266,16 @@ body {
 .filters__listContainer--ustensils {
   background-color: #ed6454;
 }
+.filters__messageContainer {
+  display: none;
+  align-items: center;
+  width: fit-content;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #fbefef;
+  margin: 0 auto;
+  padding: 1rem;
+}
 
 .is-expanded {
   display: flex;
@@ -298,6 +311,16 @@ body {
   gap: 1rem;
 }
 
+@media screen and (max-width: 1024px) {
+  .tags__taglist {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+@media screen and (max-width: 400px) {
+  .tags__taglist {
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+  }
+}
 .tag {
   max-width: 100%;
   padding: 1rem;
