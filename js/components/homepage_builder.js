@@ -1,7 +1,8 @@
 /**
  * to do: 
  * revoir la sélection du multifiltres: charge les recettes par rapport au dernier filtre selectionné actuellement sans tenir compte des autres filtres
- */
+ * voir le tri par champs de recherche 
+*/
 
 
 let allIng = [];

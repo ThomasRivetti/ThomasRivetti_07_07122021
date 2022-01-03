@@ -151,7 +151,6 @@ html {
 body {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
 .main__wrapper {
@@ -187,6 +186,9 @@ body {
   width: 100%;
 }
 
+.filters__mainContainer {
+  margin: 0 1rem;
+}
 .filters__taglist {
   display: flex;
 }

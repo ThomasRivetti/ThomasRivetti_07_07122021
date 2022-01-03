@@ -7,6 +7,9 @@
     }
 }
 .filters {
+    &__mainContainer {
+        margin: 0 1rem;
+    }
     &__taglist {
         display: flex;
     }
