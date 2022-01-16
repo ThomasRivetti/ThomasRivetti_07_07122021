@@ -28,6 +28,9 @@
     &__input {
         height: 100%;
         border-radius: 5px 0 0 5px;
+        &--isExpanded::placeholder{
+            opacity: 0.5;
+        }
     }
     &__inputContainer {
         display: none;

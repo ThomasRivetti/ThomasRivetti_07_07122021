@@ -1,6 +1,7 @@
 /**
  * to do: 
- * revoir la sélection du multifiltres: charge les recettes par rapport au dernier filtre selectionné actuellement sans tenir compte des autres filtres
+ * filtrer par la barre de recherche globale
+ * refactorisation du code
  */
 
 
@@ -20,17 +21,10 @@ fetch('./js/API/recipes.json')
         }
     })
     .then(function(value) {
-        // const searchParams = new URLSearchParams(window.location.search);
-        // const recipesId = searchParams.get("id");
-        
+                
         //affiche les recettes
         recipeCardBuilder(value.recipes);
         recipesArray = value.recipes;
-
-        // //affiche les tags des champs ingredients, appareils et ustensils
-        // showTags(allIng, 'ingredientsTaglist', 'ingredients');
-        // showTags(allDevices, 'devicesTaglist', 'device');
-        // showTags(allUstensils, 'ustensilsTaglist', 'ustensils');
     })
     .catch(function(error) {
         console.error(error);
@@ -104,11 +98,9 @@ function showTags(items, tagId, type) {
                         filteredIng.push(value);                
                         break;
                     case "device":
-                        //console.log("device",type, filteredDevices, value)
                         filteredDevices.push(value);
                         break;
                     case "ustensils":
-                        console.log("ustensils",type, filteredUstensils, value)
                         filteredUstensils.push(value);
                         break;
                     default:
@@ -121,25 +113,27 @@ function showTags(items, tagId, type) {
                     let ingBoolean = false;
                     let devBoolean = false;
                     let ustBoolean = false;
-                    if(filteredIng.length > 0) {
-                        recipe.ingredients.forEach(ing => {
-                            if(filteredIng.indexOf(ing.ingredient) !=-1) ingBoolean = true;
-                        })
-                    } else {ingBoolean = true}
+
+                    ingBoolean = filteredIng.every(function(el) {
+                        let condition = false;
+                        recipe.ingredients.forEach(ing => { if(el.indexOf(ing.ingredient) !=-1) condition = true; })
+                        return condition;
+                    })                      
                     
-                    if(filteredDevices.length > 0) {
-                        if(filteredDevices.indexOf(recipe.appliance) !=-1) devBoolean = true;
-                    } else {devBoolean = true}      
-                    if(filteredUstensils.length > 0) {
-                       
-                        recipe.ustensils.forEach(ust => { 
-                            if(filteredUstensils.indexOf(ust) !=-1) ustBoolean = true;
-                        })
-                    } else {ustBoolean = true}
-                     
-                    console.log(ingBoolean, devBoolean, ustBoolean, filteredIng, filteredDevices, filteredUstensils);
-                    if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
-                    return globalBoolean;                
+                    devBoolean = filteredDevices.every(function(el) {
+                        let condition = false;
+                        if(el.indexOf(recipe.appliance) !=-1) condition = true;
+                        return condition;
+                   })
+                   
+                   ustBoolean = filteredUstensils.every(function(el){
+                       let condition = false;
+                       recipe.ustensils.forEach(ust => {if(el.indexOf(ust)!=-1) condition = true; })
+                       return condition; 
+                   })
+                   
+                   if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
+                   return globalBoolean;                
                 }));
             }
         })
@@ -169,23 +163,26 @@ window.removeFilter = (filter) => {
         let ingBoolean = false;
         let devBoolean = false;
         let ustBoolean = false;
-        if(filteredIng.length > 0) {
-            recipe.ingredients.forEach(ing => {
-                if(filteredIng.indexOf(ing.ingredient) !=-1) ingBoolean = true;
-            })
-        } else {ingBoolean = true}
+
+        ingBoolean = filteredIng.every(function(el) {
+            let condition = false;
+            recipe.ingredients.forEach(ing => { if(el.indexOf(ing.ingredient) !=-1) condition = true; })
+            return condition;
+        })                      
         
-        if(filteredDevices.length > 0) {
-            if(filteredDevices.indexOf(recipe.appliance) !=-1) devBoolean = true;
-        } else {devBoolean = true}      
-        if(filteredUstensils.length > 0) {
-            recipe.ustensils.forEach(ust => { 
-                if(filteredUstensils.indexOf(ust) !=-1) ustBoolean = true;
-            })
-        } else {ustBoolean = true}
+        devBoolean = filteredDevices.every(function(el) {
+            let condition = false;
+            if(el.indexOf(recipe.appliance) !=-1) condition = true;
+            return condition;
+       })
+       
+       ustBoolean = filteredUstensils.every(function(el){
+           let condition = false;
+           recipe.ustensils.forEach(ust => {if(el.indexOf(ust)!=-1) condition = true; })
+           return condition; 
+       })
         
-        console.log(ingBoolean, devBoolean, ustBoolean, filteredIng, filteredDevices, filteredUstensils);
-        if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
+       if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
         return globalBoolean;                
     }));
 };
@@ -203,9 +200,11 @@ function openTaglist(idContainer) {
     let tempPlaceholder= filtersForm.childNodes[1].placeholder;
     filtersForm.childNodes[1].placeholder = filtersForm.childNodes[1].dataset.placeholder;
     filtersForm.childNodes[1].dataset.placeholder = tempPlaceholder;
+    filtersForm.childNodes[1].classList.add("filters__input--isExpanded");
     if (tagContainer.classList.contains("is-expanded")) {
         tagContainer.classList.remove("is-expanded");
         icoDropDown.classList.replace("ico__dropUp", "ico__dropDown");
+        filtersForm.childNodes[1].classList.remove("filters__input--isExpanded");
     } else {
         if (document.querySelector(".filters__inputContainer.is-expanded") != null) {
             let input = document.querySelector(".filters__inputContainer.is-expanded").previousElementSibling.childNodes[1];
@@ -213,6 +212,7 @@ function openTaglist(idContainer) {
             input.placeholder = input.dataset.placeholder;
             input.dataset.placeholder = removePlaceholder;
             document.querySelector(".filters__inputContainer.is-expanded").classList.remove("is-expanded");
+            input.classList.remove("filters__input--isExpanded");
         }  
         tagContainer.classList.add("is-expanded");
         icoDropDown.classList.replace("ico__dropDown", "ico__dropUp");

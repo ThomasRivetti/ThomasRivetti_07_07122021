@@ -209,6 +209,9 @@ body {
   height: 100%;
   border-radius: 5px 0 0 5px;
 }
+.filters__input--isExpanded::placeholder {
+  opacity: 0.5;
+}
 .filters__inputContainer {
   display: none;
   padding: 2rem 2rem 1rem 1rem;
