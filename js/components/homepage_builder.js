@@ -362,6 +362,11 @@ function recipeCardBuilder(recipes) {
   showTags(allUstensils, "ustensilsTaglist", "ustensils");
 }
 
+//champ de recherche dans la barre principale
+/**
+ * todo: afficher les tags
+ *       bloquer le chargement via ENTER
+ */
 const searchBarInput = document.getElementById("search");
 
 searchBarInput.addEventListener("keyup", (e) => {
