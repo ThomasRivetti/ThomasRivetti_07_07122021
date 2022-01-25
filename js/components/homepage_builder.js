@@ -352,3 +352,33 @@ function recipeCardBuilder(recipes) {
   showTags(allUstensils, "ustensilsTaglist", "ustensils");
 }
 // loadRecipes();
+/*
+const searchBarInput = document.getElementById("search");
+
+searchBarInput.addEventListener("keyup", (e) => {
+  let searchString = searchBarInput.value.toLowerCase();
+  let foundedRecipes = recipesArray.filter((recipe) => {
+    const ingredients = recipe.ingredients;
+    const ustensils = recipe.ustensils.join(", ");
+    const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
+    return (
+      recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
+      ingString.toLowerCase().indexOf(searchString) !== -1 ||
+      ustensils.toLowerCase().indexOf(searchString) !== -1 ||
+      recipe.appliance.toLowerCase().indexOf(searchString) !== -1
+    );
+  });
+  recipeCardBuilder(foundedRecipes);
+});
+  */
+
+const searchBarInput = document.getElementById("search");
+
+let lauchSearch = () => {
+  if (searchBarInput.value.length > 2) {
+    let searchString = searchBarInput.value.toLowerCase();
+    let foundedRecipes = [];
+    for (let i = 0; i < recipesArray.length; i++) {}
+  }
+};
+searchBarInput.addEventListener("keyup", lauchSearch());
