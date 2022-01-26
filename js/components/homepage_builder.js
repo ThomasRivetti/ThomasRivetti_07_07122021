@@ -365,6 +365,7 @@ function recipeCardBuilder(recipes) {
 //champ de recherche dans la barre principale
 /**
  * todo: afficher les tags
+ *       selection mutliple via la barre + tags
  *       bloquer le chargement via ENTER
  */
 const searchBarInput = document.getElementById("search");
