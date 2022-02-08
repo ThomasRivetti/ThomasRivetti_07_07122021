@@ -93,9 +93,8 @@
             background-color: $filters-3;
         }
     }
-    &__messageContainer {
-        display: none;
-        //display: flex;
+    &__message {
+        display: flex;
         align-items: center;
         width: fit-content;
         justify-content: center;        
@@ -104,9 +103,9 @@
         margin: 0 auto;
         padding: 1rem;
     }
-    // &__icoClose {
-        
-    // }
+    &__messageContainer {
+        display: flex;
+     }
 }
 .is-expanded {
     display: flex;

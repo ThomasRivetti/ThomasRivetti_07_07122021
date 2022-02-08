@@ -269,8 +269,8 @@ body {
 .filters__listContainer--ustensils {
   background-color: #ed6454;
 }
-.filters__messageContainer {
-  display: none;
+.filters__message {
+  display: flex;
   align-items: center;
   width: fit-content;
   justify-content: center;
@@ -278,6 +278,9 @@ body {
   background-color: #fbefef;
   margin: 0 auto;
   padding: 1rem;
+}
+.filters__messageContainer {
+  display: flex;
 }
 
 .is-expanded {

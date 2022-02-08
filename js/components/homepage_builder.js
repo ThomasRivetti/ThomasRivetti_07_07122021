@@ -363,17 +363,36 @@ function recipeCardBuilder(recipes) {
 const searchBarInput = document.getElementById("search");
 
 searchBarInput.addEventListener("keyup", (e) => {
-  let searchString = searchBarInput.value.toLowerCase();
-  let foundedRecipes = recipesArray.filter((recipe) => {
-    const ingredients = recipe.ingredients;
-    const ustensils = recipe.ustensils.join(", ");
-    const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
-    return (
-      recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
-      ingString.toLowerCase().indexOf(searchString) !== -1 ||
-      ustensils.toLowerCase().indexOf(searchString) !== -1 ||
-      recipe.appliance.toLowerCase().indexOf(searchString) !== -1
-    );
-  });
-  recipeCardBuilder(foundedRecipes);
+  if (e.target.value.length >= 3) {
+    let searchString = searchBarInput.value.toLowerCase();
+    let foundedRecipes = recipesArray.filter((recipe) => {
+      const ingredients = recipe.ingredients;
+      const ustensils = recipe.ustensils.join(", ");
+      const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
+      return (
+        recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
+        ingString.toLowerCase().indexOf(searchString) !== -1 ||
+        ustensils.toLowerCase().indexOf(searchString) !== -1 ||
+        recipe.appliance.toLowerCase().indexOf(searchString) !== -1
+      );
+    });
+    recipeCardBuilder(foundedRecipes);
+  } else {
+    const noRecipesMessage = document.getElementById("filtersMessage");
+    noRecipesMessage.innerHTML = `
+      <p class="filters__message">
+        Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
+        <span>
+          <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
+        </span>
+      </p>        
+    `;
+  }
 });
+
+/**
+ * afficher le message lors de l'absence de recettes et
+ * le supprimer si les recettes sont trouvées
+ * la recherche doit dépendre du tag déja séléctionné
+ *
+ */
