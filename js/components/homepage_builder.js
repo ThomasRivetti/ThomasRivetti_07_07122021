@@ -361,6 +361,7 @@ function recipeCardBuilder(recipes) {
  *       bloquer le chargement via ENTER
  */
 const searchBarInput = document.getElementById("search");
+const noRecipesMessage = document.getElementById("filtersMessage");
 
 searchBarInput.addEventListener("keyup", (e) => {
   if (e.target.value.length >= 3) {
@@ -369,6 +370,7 @@ searchBarInput.addEventListener("keyup", (e) => {
       const ingredients = recipe.ingredients;
       const ustensils = recipe.ustensils.join(", ");
       const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
+      noRecipesMessage.innerHTML = "";
       return (
         recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
         ingString.toLowerCase().indexOf(searchString) !== -1 ||
@@ -378,7 +380,6 @@ searchBarInput.addEventListener("keyup", (e) => {
     });
     recipeCardBuilder(foundedRecipes);
   } else {
-    const noRecipesMessage = document.getElementById("filtersMessage");
     noRecipesMessage.innerHTML = `
       <p class="filters__message">
         Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
