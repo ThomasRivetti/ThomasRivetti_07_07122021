@@ -4,35 +4,27 @@
  * voir le tri par champs de recherche
  */
 
-let allIng = [];
-let filteredIng = [];
-let allDevices = [];
-let filteredDevices = [];
-let allUstensils = [];
-let filteredUstensils = [];
-let recipesArray = [];
-let recipesArrayFiltered = [];
+var allIng = [];
+var filteredIng = [];
+var allDevices = [];
+var filteredDevices = [];
+var allUstensils = [];
+var filteredUstensils = [];
+var recipesArray = [];
+var recipesArrayFiltered = [];
 
 fetch("./js/API/recipes.json")
-  .then(function (response) {
+  .then((response) => {
     if (response.ok) {
       return response.json();
     }
   })
-  .then(function (value) {
-    // const searchParams = new URLSearchParams(window.location.search);
-    // const recipesId = searchParams.get("id");
-
+  .then((value) => {
     //affiche les recettes
     recipeCardBuilder(value.recipes);
     recipesArray = value.recipes;
-
-    // //affiche les tags des champs ingredients, appareils et ustensils
-    // showTags(allIng, 'ingredientsTaglist', 'ingredients');
-    // showTags(allDevices, 'devicesTaglist', 'device');
-    // showTags(allUstensils, 'ustensilsTaglist', 'ustensils');
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.error(error);
   });
 // filtrer les elements dans les listes en fonction des valeurs saisies dans les inputs
@@ -259,7 +251,7 @@ window.removeFilter = (filter) => {
 };
 
 document.querySelectorAll(".filters__dropDown").forEach((btn) =>
-  btn.addEventListener("click", function (event) {
+  btn.addEventListener("click", (event) => {
     event.preventDefault();
     openTaglist(btn.getAttribute("aria-controls"));
   })

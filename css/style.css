@@ -212,6 +212,7 @@ body {
   border-radius: 5px 0 0 5px;
 }
 .filters__inputContainer {
+  position: absolute;
   display: none;
   padding: 2rem 2rem 1rem 1rem;
   border-radius: 5px;
@@ -303,6 +304,9 @@ body {
   }
   .filters__container {
     flex-shrink: 0;
+  }
+  .filters__inputContainer {
+    position: initial;
   }
 }
 .tags__taglist {

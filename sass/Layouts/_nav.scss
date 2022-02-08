@@ -33,6 +33,7 @@
         border-radius: 5px 0 0 5px;
     }
     &__inputContainer {
+        position: absolute;
         display: none;
         padding: 2rem 2rem 1rem 1rem;
         border-radius: 5px;
@@ -130,11 +131,15 @@
         &__container {
             flex-shrink: 0;
         }
+        &__inputContainer {
+            position: initial;
+        }
     }
 }
 
 .tags {
     &__taglist {
+        //position: absolute;
         display: grid;
         grid-template-columns: repeat(3, minmax(150px, 1fr));
         padding: 1rem;
