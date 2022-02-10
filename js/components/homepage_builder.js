@@ -131,11 +131,9 @@ function showTags(items, tagId, type) {
             filteredIng.push(value);
             break;
           case "device":
-            //console.log("device",type, filteredDevices, value)
             filteredDevices.push(value);
             break;
           case "ustensils":
-            console.log("ustensils", type, filteredUstensils, value);
             filteredUstensils.push(value);
             break;
           default:
@@ -171,15 +169,6 @@ function showTags(items, tagId, type) {
             } else {
               ustBoolean = true;
             }
-
-            console.log(
-              ingBoolean,
-              devBoolean,
-              ustBoolean,
-              filteredIng,
-              filteredDevices,
-              filteredUstensils
-            );
             if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
             return globalBoolean;
           })
@@ -236,14 +225,6 @@ window.removeFilter = (filter) => {
         ustBoolean = true;
       }
 
-      console.log(
-        ingBoolean,
-        devBoolean,
-        ustBoolean,
-        filteredIng,
-        filteredDevices,
-        filteredUstensils
-      );
       if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
       return globalBoolean;
     })
@@ -383,7 +364,7 @@ searchBarInput.addEventListener("keyup", (e) => {
     noRecipesMessage.innerHTML = `
       <p class="filters__message">
         Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
-        <span>
+        <span id="closeMessage>
           <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
         </span>
       </p>        
