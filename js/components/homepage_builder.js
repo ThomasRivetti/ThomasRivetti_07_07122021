@@ -4,8 +4,10 @@ var allDevices = [];
 var filteredDevices = [];
 var allUstensils = [];
 var filteredUstensils = [];
+var searchBarValue = "";
 var recipesArray = [];
 var recipesArrayFiltered = [];
+
 
 fetch("./js/API/recipes.json")
   .then((response) => {
@@ -85,7 +87,6 @@ function addFilter(event) {
   const tagsBtn = document.getElementById("tagsBtn");
   const type = (event.target.dataset.type !== undefined) ? event.target.dataset.type : "default";
   const value = (event.target.dataset.item !== undefined) ? event.target.dataset.item : event.target.value;
-  console.log(event.target.classList);
   if (!event.target.classList.contains("is-selected")) {    
     let properValueCase = value[0].toUpperCase() + value.toLowerCase().slice(1);
     if (type == "default" && document.querySelector(".filters__btn--default") !== null) {
@@ -115,8 +116,8 @@ function addFilter(event) {
       case "ustensils":
         filteredUstensils.push(value);
         break;
-      default:
-        console.log("searchBar default");
+      default: 
+        break;
     }
 
     // maj liste des recettes
@@ -132,12 +133,13 @@ function recipeFilter() {
     let ingBoolean = false;
     let devBoolean = false;
     let ustBoolean = false;
+    let searchBarBoolean = false;
+    const ustString = recipe.ustensils.join(", ");
+    const ingString = recipe.ingredients.map((ing) => ing.ingredient).join(", ");
 
     ingBoolean = filteredIng.every((el) => {
       let condition = false;
-      recipe.ingredients.forEach((ing) => {
-        if (el.indexOf(ing.ingredient) != -1) condition = true;
-      });
+      if (ingString.indexOf(el) != -1) condition = true;
       return condition;
     });
 
@@ -149,13 +151,18 @@ function recipeFilter() {
 
     ustBoolean = filteredUstensils.every((el) => {
       let condition = false;
-      recipe.ustensils.forEach((ust) => {
-        if (el.indexOf(ust) != -1) condition = true;
-      });
+      if (ustString.indexOf(el) != -1) condition = true;
       return condition;
     });
 
-    if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
+    if(recipe.name.toLowerCase().indexOf(searchBarValue) !== -1 ||
+      ingString.toLowerCase().indexOf(searchBarValue) !== -1 ||
+      ustString.toLowerCase().indexOf(searchBarValue) !== -1 ||
+      recipe.appliance.toLowerCase().indexOf(searchBarValue) !== -1) {
+        searchBarBoolean = true;
+    }
+
+    if (ingBoolean && devBoolean && ustBoolean && searchBarBoolean) globalBoolean = true;
     return globalBoolean;
   });
 
@@ -179,8 +186,12 @@ window.removeFilter = (filter) => {
     filteredUstensils.splice(filteredUstensils.indexOf(unselectValue), 1);
   }
 
-  if (document.querySelector('[data-item="' + unselectValue + '"]').classList.contains("is-selected")) {
+  if (!filter.classList.contains("filters__btn--default") ) {
     document.querySelector('[data-item="' + unselectValue + '"]').classList.remove("is-selected"); // enleve la classe is-selected
+  } else {
+    searchBarValue = "";
+    searchBarInput.value = "";
+    noRecipesMessage.innerHTML = "";
   }
 
   const filtered = recipeFilter();
@@ -283,49 +294,38 @@ function recipeCardBuilder(recipes) {
   showTags(allUstensils, "ustensilsTaglist", "ustensils");
 }
 
-
 //champ de recherche dans la barre principale
-/**
- * todo: afficher les tags
- *       selection mutliple via la barre + tags
- *       bloquer le chargement via ENTER
- */
- const searchBarInput = document.getElementById("search");
- const noRecipesMessage = document.getElementById("filtersMessage");
- const templateMessage = `
-   <p class="filters__message">
-     Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
-     <span id="closeMessage">
-       <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
-     </span>
-   </p>        
-   `;
- 
- searchBarInput.addEventListener("keyup", (e) => {
-   if (e.target.value.length >= 3) {
-     addFilter(e);
-     let searchString = searchBarInput.value.toLowerCase();
-     recipesArrayFiltered = recipesArray.filter((recipe) => {
-       const ingredients = recipe.ingredients;
-       const ustensils = recipe.ustensils.join(", ");
-       const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
-       noRecipesMessage.innerHTML = "";
-       return (
-         recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
-         ingString.toLowerCase().indexOf(searchString) !== -1 ||
-         ustensils.toLowerCase().indexOf(searchString) !== -1 ||
-         recipe.appliance.toLowerCase().indexOf(searchString) !== -1
-       );
-     });
-     if (recipesArrayFiltered.length > 0) {
-       recipeCardBuilder(recipesArrayFiltered);
-     } else noRecipesMessage.innerHTML = templateMessage;
-   } else noRecipesMessage.innerHTML = templateMessage;
- });
- 
- /**
-  * afficher le message lors de l'absence de recettes et
-  * le supprimer si les recettes sont trouvées
-  * la recherche doit dépendre du tag déja séléctionné
-  *
-  */
+const searchBarInput = document.getElementById("search");
+const noRecipesMessage = document.getElementById("filtersMessage");
+const templateMessage = `
+  <p class="filters__message">
+    Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
+    <button id="closeMessage">
+      <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
+    </button>
+  </p>        
+  `;
+
+searchBarInput.addEventListener("keyup", (e) => {
+  if (e.target.value.length >= 3) {
+    addFilter(e);
+    searchBarValue = searchBarInput.value.toLowerCase();
+    noRecipesMessage.innerHTML = "";
+    if (recipesArrayFiltered.length == 0) showErrorMessage();
+  } else showErrorMessage();
+});
+
+//fonctions de suppression du message d'absence de recettes
+function showErrorMessage() {
+  noRecipesMessage.innerHTML = templateMessage;
+  document.getElementById("closeMessage").addEventListener("click", removeErrorMessage)
+}
+function removeErrorMessage() {
+  noRecipesMessage.innerHTML = "";
+  searchBarValue = "";
+  searchBarInput.value = "";
+  if(document.querySelector(".filters__btn--default") !== null) document.querySelector(".filters__btn--default").remove();
+
+  const filtered = recipeFilter();
+  recipeCardBuilder(filtered);
+}
