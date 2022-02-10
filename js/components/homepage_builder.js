@@ -1,9 +1,3 @@
-/**
- * to do:
- * revoir la sélection du multifiltres: charge les recettes par rapport au dernier filtre selectionné actuellement sans tenir compte des autres filtres
- * voir le tri par champs de recherche
- */
-
 var allIng = [];
 var filteredIng = [];
 var allDevices = [];
@@ -15,63 +9,44 @@ var recipesArrayFiltered = [];
 
 fetch("./js/API/recipes.json")
   .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
+    if (response.ok) return response.json();
   })
   .then((value) => {
     //affiche les recettes
     recipeCardBuilder(value.recipes);
     recipesArray = value.recipes;
   })
-  .catch((error) => {
-    console.error(error);
-  });
+  .catch((error) => console.error(error));
+
 // filtrer les elements dans les listes en fonction des valeurs saisies dans les inputs
 const filtersInput = document.querySelectorAll(".filters__input");
 filtersInput.forEach((input) => {
-  input.addEventListener("keyup", function (event) {
+  input.addEventListener("keyup", (event) => {
     if (event.target.value.length > 0) {
-      event.target.parentElement.nextElementSibling.classList.add(
-        "is-expanded"
-      );
+      event.target.parentElement.nextElementSibling.classList.add("is-expanded");
     } else {
-      event.target.parentElement.nextElementSibling.classList.remove(
-        "is-expanded"
-      );
+      event.target.parentElement.nextElementSibling.classList.remove("is-expanded");
     }
     switch (event.target.dataset.search) {
       case "ingredients":
         showTags(
           allIng.filter(
-            (ing) =>
-              ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
-          ),
-          "ingredientsTaglist",
-          "ingredients"
+            (ing) => ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ), "ingredientsTaglist", "ingredients"
         );
         break;
       case "devices":
         showTags(
           allDevices.filter(
-            (device) =>
-              device.toLowerCase().indexOf(event.target.value.toLowerCase()) !=
-              -1
-          ),
-          "devicesTaglist",
-          "device"
+            (device) => device.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ), "devicesTaglist", "device"
         );
         break;
       case "ustensils":
         showTags(
           allUstensils.filter(
-            (ustensil) =>
-              ustensil
-                .toLowerCase()
-                .indexOf(event.target.value.toLowerCase()) != -1
-          ),
-          "ustensilsTaglist",
-          "ustensils"
+            (ustensil) => ustensil.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ), "ustensilsTaglist", "ustensils"
         );
         break;
       default:
@@ -103,7 +78,7 @@ function showTags(items, tagId, type) {
   const tags = tag.querySelectorAll(".tag");
   const tagsBtn = document.getElementById("tagsBtn");
   tags.forEach((tag) => {
-    tag.addEventListener("click", function (event) {
+    tag.addEventListener("click", (event) => {
       //affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
       const type = event.target.dataset.type;
       const value = event.target.dataset.item;
@@ -112,10 +87,9 @@ function showTags(items, tagId, type) {
         type !== undefined &&
         value !== undefined
       ) {
-        let templateTag = ``;
         let properValueCase =
           value[0].toUpperCase() + value.toLowerCase().slice(1);
-        templateTag += `
+        let templateTag = `
                 <li>
                 <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
                     ${properValueCase}
@@ -147,6 +121,8 @@ function showTags(items, tagId, type) {
     });
   });
 }
+
+//permet de filtrer les recettes lorsqu'on selectionne un tag
 function recipeFilter() {
   recipesArrayFiltered = recipesArray.filter((recipe) => {
     let globalBoolean = false;
@@ -154,7 +130,7 @@ function recipeFilter() {
     let devBoolean = false;
     let ustBoolean = false;
 
-    ingBoolean = filteredIng.every(function (el) {
+    ingBoolean = filteredIng.every((el) => {
       let condition = false;
       recipe.ingredients.forEach((ing) => {
         if (el.indexOf(ing.ingredient) != -1) condition = true;
@@ -162,13 +138,13 @@ function recipeFilter() {
       return condition;
     });
 
-    devBoolean = filteredDevices.every(function (el) {
+    devBoolean = filteredDevices.every((el) => {
       let condition = false;
       if (el.indexOf(recipe.appliance) != -1) condition = true;
       return condition;
     });
 
-    ustBoolean = filteredUstensils.every(function (el) {
+    ustBoolean = filteredUstensils.every((el) => {
       let condition = false;
       recipe.ustensils.forEach((ust) => {
         if (el.indexOf(ust) != -1) condition = true;
@@ -200,11 +176,9 @@ window.removeFilter = (filter) => {
     filteredUstensils.splice(filteredUstensils.indexOf(unselectValue), 1);
   }
 
-  document
-    .querySelector('[data-item="' + unselectValue + '"]')
-    .classList.remove("is-selected"); // enleve la classe is-selected
+  document.querySelector('[data-item="' + unselectValue + '"]').classList.remove("is-selected"); // enleve la classe is-selected
+
   const filtered = recipeFilter();
-  console.log("filtered", filtered);
   recipeCardBuilder(filtered);
 };
 
@@ -220,25 +194,22 @@ function openTaglist(idContainer) {
   let tagContainer = document.getElementById(idContainer);
   const filtersForm = tagContainer.previousElementSibling;
   const icoDropDown = filtersForm.querySelector(".ico");
+  
   let tempPlaceholder = filtersForm.childNodes[1].placeholder;
-  filtersForm.childNodes[1].placeholder =
-    filtersForm.childNodes[1].dataset.placeholder;
+  filtersForm.childNodes[1].placeholder = filtersForm.childNodes[1].dataset.placeholder;
   filtersForm.childNodes[1].dataset.placeholder = tempPlaceholder;
+
   if (tagContainer.classList.contains("is-expanded")) {
     tagContainer.classList.remove("is-expanded");
     icoDropDown.classList.replace("ico__dropUp", "ico__dropDown");
   } else {
-    if (
-      document.querySelector(".filters__inputContainer.is-expanded") != null
-    ) {
-      let input = document.querySelector(".filters__inputContainer.is-expanded")
-        .previousElementSibling.childNodes[1];
+    if (document.querySelector(".filters__inputContainer.is-expanded") != null) {
+      let input = document.querySelector(".filters__inputContainer.is-expanded").previousElementSibling.childNodes[1];
       let removePlaceholder = input.placeholder;
       input.placeholder = input.dataset.placeholder;
       input.dataset.placeholder = removePlaceholder;
-      document
-        .querySelector(".filters__inputContainer.is-expanded")
-        .classList.remove("is-expanded");
+
+      document.querySelector(".filters__inputContainer.is-expanded").classList.remove("is-expanded");
     }
     tagContainer.classList.add("is-expanded");
     icoDropDown.classList.replace("ico__dropDown", "ico__dropUp");
@@ -291,19 +262,14 @@ function recipeCardBuilder(recipes) {
   recipes.forEach((e) => {
     //ingrédients
     e.ingredients.forEach((el) => {
-      if (allIng.indexOf(el.ingredient) == -1) {
-        allIng.push(el.ingredient);
-      }
+      if (allIng.indexOf(el.ingredient) == -1) allIng.push(el.ingredient);
     });
     //appareils
-    if (allDevices.indexOf(e.appliance) == -1) {
-      allDevices.push(e.appliance);
-    }
+    if (allDevices.indexOf(e.appliance) == -1) allDevices.push(e.appliance);
+
     //ustensiles
     e.ustensils.forEach((el) => {
-      if (allUstensils.indexOf(el) == -1) {
-        allUstensils.push(el);
-      }
+      if (allUstensils.indexOf(el) == -1) allUstensils.push(el);
     });
   });
   //affiche les tags des champs ingredients, appareils et ustensils
