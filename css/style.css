@@ -363,6 +363,10 @@ body {
   padding-left: 2rem;
 }
 
+.recipe__container {
+  display: flex;
+  flex-direction: column;
+}
 .recipe__mainContainer {
   width: 1240px;
   margin: 2rem auto;
@@ -383,6 +387,7 @@ body {
   padding: 1rem;
   background-color: #e6e6e6;
   border-radius: 0 0 5px 5px;
+  flex-grow: 1;
 }
 .recipe__legend {
   display: flex;
@@ -390,6 +395,7 @@ body {
 }
 .recipe__time {
   margin-left: auto;
+  flex: 0 0 auto;
 }
 .recipe__infos {
   display: -ms-grid;
