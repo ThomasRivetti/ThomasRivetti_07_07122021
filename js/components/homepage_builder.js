@@ -277,3 +277,49 @@ function recipeCardBuilder(recipes) {
   showTags(allDevices, "devicesTaglist", "device");
   showTags(allUstensils, "ustensilsTaglist", "ustensils");
 }
+
+
+//champ de recherche dans la barre principale
+/**
+ * todo: afficher les tags
+ *       selection mutliple via la barre + tags
+ *       bloquer le chargement via ENTER
+ */
+ const searchBarInput = document.getElementById("search");
+ const noRecipesMessage = document.getElementById("filtersMessage");
+ const templateMessage = `
+   <p class="filters__message">
+     Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
+     <span id="closeMessage">
+       <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
+     </span>
+   </p>        
+   `;
+ 
+ searchBarInput.addEventListener("keyup", (e) => {
+   if (e.target.value.length >= 3) {
+     let searchString = searchBarInput.value.toLowerCase();
+     recipesArrayFiltered = recipesArray.filter((recipe) => {
+       const ingredients = recipe.ingredients;
+       const ustensils = recipe.ustensils.join(", ");
+       const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
+       noRecipesMessage.innerHTML = "";
+       return (
+         recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
+         ingString.toLowerCase().indexOf(searchString) !== -1 ||
+         ustensils.toLowerCase().indexOf(searchString) !== -1 ||
+         recipe.appliance.toLowerCase().indexOf(searchString) !== -1
+       );
+     });
+     if (recipesArrayFiltered.length > 0) {
+       recipeCardBuilder(recipesArrayFiltered);
+     } else noRecipesMessage.innerHTML = templateMessage;
+   } else noRecipesMessage.innerHTML = templateMessage;
+ });
+ 
+ /**
+  * afficher le message lors de l'absence de recettes et
+  * le supprimer si les recettes sont trouvées
+  * la recherche doit dépendre du tag déja séléctionné
+  *
+  */
