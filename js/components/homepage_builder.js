@@ -83,20 +83,27 @@ function showTags(items, tagId, type) {
 //affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
 function addFilter(event) {
   const tagsBtn = document.getElementById("tagsBtn");
-  const type = event.target.dataset.type;
-  const value = event.target.dataset.item;
-  if (!event.target.classList.contains("is-selected") && type !== undefined && value !== undefined) {
+  const type = (event.target.dataset.type !== undefined) ? event.target.dataset.type : "default";
+  const value = (event.target.dataset.item !== undefined) ? event.target.dataset.item : event.target.value;
+  console.log(event.target.classList);
+  if (!event.target.classList.contains("is-selected")) {    
     let properValueCase = value[0].toUpperCase() + value.toLowerCase().slice(1);
-    let templateTag = `
-            <li>
-            <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
-                ${properValueCase}
-                <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-            </button>
-            </li>
-            `;
-    tagsBtn.innerHTML += templateTag;
-    event.target.classList.add("is-selected");
+    if (type == "default" && document.querySelector(".filters__btn--default") !== null) {
+      const filterDefault = document.querySelector(".filters__btn--default");
+      filterDefault.dataset.controls = value;
+      filterDefault.innerHTML = properValueCase+'<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">';
+    } else {
+      let templateTag = `
+              <li>
+              <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
+                  ${properValueCase}
+                  <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+              </button>
+              </li>
+              `;
+      tagsBtn.innerHTML += templateTag;
+      if(type !== "default") event.target.classList.add("is-selected");
+    }
 
     switch (type) {
       case "ingredients":
@@ -109,7 +116,7 @@ function addFilter(event) {
         filteredUstensils.push(value);
         break;
       default:
-        console.log("erreur");
+        console.log("searchBar default");
     }
 
     // maj liste des recettes
@@ -172,7 +179,9 @@ window.removeFilter = (filter) => {
     filteredUstensils.splice(filteredUstensils.indexOf(unselectValue), 1);
   }
 
-  document.querySelector('[data-item="' + unselectValue + '"]').classList.remove("is-selected"); // enleve la classe is-selected
+  if (document.querySelector('[data-item="' + unselectValue + '"]').classList.contains("is-selected")) {
+    document.querySelector('[data-item="' + unselectValue + '"]').classList.remove("is-selected"); // enleve la classe is-selected
+  }
 
   const filtered = recipeFilter();
   recipeCardBuilder(filtered);
@@ -294,6 +303,7 @@ function recipeCardBuilder(recipes) {
  
  searchBarInput.addEventListener("keyup", (e) => {
    if (e.target.value.length >= 3) {
+     addFilter(e);
      let searchString = searchBarInput.value.toLowerCase();
      recipesArrayFiltered = recipesArray.filter((recipe) => {
        const ingredients = recipe.ingredients;
