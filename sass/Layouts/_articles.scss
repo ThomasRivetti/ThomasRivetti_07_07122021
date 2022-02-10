@@ -1,4 +1,8 @@
 .recipe {
+    &__container{
+        display: flex;
+        flex-direction: column;
+    }
     &__mainContainer {
         width: 1240px;
         margin: 2rem auto;
@@ -19,6 +23,7 @@
         padding: 1rem;
         background-color: lighten($color-dark, 90%);
         border-radius: 0 0 5px 5px;
+        flex-grow: 1;
     }
     &__legend {
         display: flex;
@@ -26,6 +31,7 @@
     }
     &__time {
         margin-left: auto;
+        flex: 0 0 auto;
     }
     &__infos {
         display: -ms-grid;

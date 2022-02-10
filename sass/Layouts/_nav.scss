@@ -7,6 +7,9 @@
     }
 }
 .filters {
+    &__mainContainer {
+        margin: 0 1rem;
+    }
     &__taglist {
         display: flex;
     }
@@ -33,6 +36,7 @@
         }
     }
     &__inputContainer {
+        position: absolute;
         display: none;
         padding: 2rem 2rem 1rem 1rem;
         border-radius: 5px;
@@ -92,9 +96,8 @@
             background-color: $filters-3;
         }
     }
-    &__messageContainer {
-        display: none;
-        //display: flex;
+    &__message {
+        display: flex;
         align-items: center;
         width: fit-content;
         justify-content: center;        
@@ -103,9 +106,9 @@
         margin: 0 auto;
         padding: 1rem;
     }
-    // &__icoClose {
-        
-    // }
+    &__messageContainer {
+        display: flex;
+     }
 }
 .is-expanded {
     display: flex;
@@ -130,11 +133,15 @@
         &__container {
             flex-shrink: 0;
         }
+        &__inputContainer {
+            position: initial;
+        }
     }
 }
 
 .tags {
     &__taglist {
+        //position: absolute;
         display: grid;
         grid-template-columns: repeat(3, minmax(150px, 1fr));
         padding: 1rem;
