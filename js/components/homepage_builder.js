@@ -76,51 +76,47 @@ function showTags(items, tagId, type) {
   }
   tag.innerHTML = templateTaglist;
   const tags = tag.querySelectorAll(".tag");
-  const tagsBtn = document.getElementById("tagsBtn");
-  tags.forEach((tag) => {
-    tag.addEventListener("click", (event) => {
-      //affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
-      const type = event.target.dataset.type;
-      const value = event.target.dataset.item;
-      if (
-        !event.target.classList.contains("is-selected") &&
-        type !== undefined &&
-        value !== undefined
-      ) {
-        let properValueCase =
-          value[0].toUpperCase() + value.toLowerCase().slice(1);
-        let templateTag = `
-                <li>
-                <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
-                    ${properValueCase}
-                    <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-                </button>
-                </li>
-                `;
-        tagsBtn.innerHTML += templateTag;
-        event.target.classList.add("is-selected");
-
-        switch (type) {
-          case "ingredients":
-            filteredIng.push(value);
-            break;
-          case "device":
-            filteredDevices.push(value);
-            break;
-          case "ustensils":
-            filteredUstensils.push(value);
-            break;
-          default:
-            console.log("erreur");
-        }
-
-        // maj liste des recettes
-        const filtered = recipeFilter();
-        recipeCardBuilder(filtered);
-      }
-    });
-  });
+  
+  tags.forEach((tag) => tag.addEventListener("click", addFilter));
 }
+
+//affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
+function addFilter(event) {
+  const tagsBtn = document.getElementById("tagsBtn");
+  const type = event.target.dataset.type;
+  const value = event.target.dataset.item;
+  if (!event.target.classList.contains("is-selected") && type !== undefined && value !== undefined) {
+    let properValueCase = value[0].toUpperCase() + value.toLowerCase().slice(1);
+    let templateTag = `
+            <li>
+            <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
+                ${properValueCase}
+                <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+            </button>
+            </li>
+            `;
+    tagsBtn.innerHTML += templateTag;
+    event.target.classList.add("is-selected");
+
+    switch (type) {
+      case "ingredients":
+        filteredIng.push(value);
+        break;
+      case "device":
+        filteredDevices.push(value);
+        break;
+      case "ustensils":
+        filteredUstensils.push(value);
+        break;
+      default:
+        console.log("erreur");
+    }
+
+    // maj liste des recettes
+    const filtered = recipeFilter();
+    recipeCardBuilder(filtered);
+  }
+};
 
 //permet de filtrer les recettes lorsqu'on selectionne un tag
 function recipeFilter() {
