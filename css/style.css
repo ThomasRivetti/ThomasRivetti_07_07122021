@@ -178,7 +178,6 @@ body {
 }
 
 .searchBar {
-  max-width: 1240px;
   margin: 0 auto;
   display: flex;
 }
@@ -188,6 +187,7 @@ body {
 
 .filters__mainContainer {
   margin: 0 1rem;
+  width: auto;
 }
 .filters__taglist {
   display: flex;
@@ -432,7 +432,7 @@ body {
   background-color: #e59e9e;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1260px) {
   .recipe__mainContainer {
     width: 100vw;
     margin: 2rem auto;
