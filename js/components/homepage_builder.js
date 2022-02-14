@@ -128,44 +128,62 @@ function addFilter(event) {
 
 //permet de filtrer les recettes lorsqu'on selectionne un tag
 function recipeFilter() {
-  recipesArrayFiltered = recipesArray.filter((recipe) => {
-    let globalBoolean = false;
+  recipesArrayFiltered = [];
+  for(let i = 0; i<recipesArray.length; i++){
+    let recipe = recipesArray[i];
+
     let ingBoolean = false;
     let devBoolean = false;
     let ustBoolean = false;
     let searchBarBoolean = false;
+    
     const ustString = recipe.ustensils.join(", ");
-    const ingString = recipe.ingredients.map((ing) => ing.ingredient).join(", ");
+    let ing = [];
+    for(let y = 0; y < recipe.ingredients.length; y++ ) {
+      ing.push(recipe.ingredients[y].ingredient);  
+    }
+    const ingString = ing.join(", ");
 
-    ingBoolean = filteredIng.every((el) => {
-      let condition = false;
-      if (ingString.indexOf(el) != -1) condition = true;
-      return condition;
-    });
-
-    devBoolean = filteredDevices.every((el) => {
-      let condition = false;
-      if (el.indexOf(recipe.appliance) != -1) condition = true;
-      return condition;
-    });
-
-    ustBoolean = filteredUstensils.every((el) => {
-      let condition = false;
-      if (ustString.indexOf(el) != -1) condition = true;
-      return condition;
-    });
-
+    if(filteredIng.length > 0) {
+      ingBoolean = false;
+      for (let a = 0; a < filteredIng.length; a++ ) {
+        if(ingString.indexOf(filteredIng[a]) != -1) {
+          ingBoolean = true;
+          break;
+        }        
+      }
+    } else ingBoolean = true;
+    
+    if(filteredDevices.length > 0) {
+      devBoolean = false;
+      for (let a = 0; a < filteredDevices.length; a++ ) {
+        if(recipe.appliance.indexOf(filteredDevices[a]) != -1) {
+          devBoolean = true;
+          break;
+        }        
+      }
+    } else devBoolean = true;
+    
+    if(filteredUstensils.length > 0) {
+      ustBoolean = false;
+      for (let a = 0; a < filteredUstensils.length; a++ ) {
+        if(ustString.indexOf(filteredUstensils[a]) != -1) {
+          ustBoolean = true;
+          break;
+        }        
+      }
+    } else ustBoolean = true;
+  
     if(recipe.name.toLowerCase().indexOf(searchBarValue) !== -1 ||
       ingString.toLowerCase().indexOf(searchBarValue) !== -1 ||
       ustString.toLowerCase().indexOf(searchBarValue) !== -1 ||
       recipe.appliance.toLowerCase().indexOf(searchBarValue) !== -1) {
         searchBarBoolean = true;
     }
-
-    if (ingBoolean && devBoolean && ustBoolean && searchBarBoolean) globalBoolean = true;
-    return globalBoolean;
-  });
-
+  
+    if (ingBoolean && devBoolean && ustBoolean && searchBarBoolean) recipesArrayFiltered.push(recipe);  
+  };
+ 
   return recipesArrayFiltered;
 }
 
@@ -204,16 +222,6 @@ document.querySelectorAll(".filters__dropDown").forEach((btn) =>
     openTaglist(btn.getAttribute("aria-controls"));
   })
 );
-
-// window.onclick = (e)=> {
-//   if(!e.target.matches(".filters__dropDown")) {
-//     let tagsContainer = document.querySelector("filters__inputContainer is-expanded");
-//       if(tagsContainer.classList.contains("is-expanded")) {
-//         tagsContainer.classList.remove("is-expanded");
-//       }
-//     }
-//   }
-
 
 //fonction ouverture container des tags au clic sur le dropdown
 function openTaglist(idContainer) {
