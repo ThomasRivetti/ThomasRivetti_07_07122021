@@ -205,6 +205,16 @@ document.querySelectorAll(".filters__dropDown").forEach((btn) =>
   })
 );
 
+// window.onclick = (e)=> {
+//   if(!e.target.matches(".filters__dropDown")) {
+//     let tagsContainer = document.querySelector("filters__inputContainer is-expanded");
+//       if(tagsContainer.classList.contains("is-expanded")) {
+//         tagsContainer.classList.remove("is-expanded");
+//       }
+//     }
+//   }
+
+
 //fonction ouverture container des tags au clic sur le dropdown
 function openTaglist(idContainer) {
   let tagContainer = document.getElementById(idContainer);
