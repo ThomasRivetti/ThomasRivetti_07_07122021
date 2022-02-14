@@ -1,38 +1,52 @@
 .searchBar {
-    max-width: 1240px;
-    margin: 0  auto;
+    //max-width: 1240px;
+    margin: 0 auto;
     display: flex;
+
     &__input {
         width: 100%;
     }
 }
+
 .filters {
+    &__mainContainer {
+        margin: 0 1rem;
+        width: auto;
+    }
+
     &__taglist {
         display: flex;
     }
+
     &__mainContainers {
         display: flex;
         margin: 2rem 0;
     }
+
     &__container {
         margin: 0 1rem 1rem 0;
         max-width: 670px;
         flex: 0 1 170px;
     }
+
     &__form {
         display: flex;
         align-items: center;
         height: 70px;
         width: 100%;
     }
+
     &__input {
         height: 100%;
         border-radius: 5px 0 0 5px;
-        &--isExpanded::placeholder{
+
+        &--isExpanded::placeholder {
             opacity: 0.5;
         }
     }
+
     &__inputContainer {
+        position: absolute;
         display: none;
         padding: 2rem 2rem 1rem 1rem;
         border-radius: 5px;
@@ -41,127 +55,152 @@
         overflow-x: hidden;
         scrollbar-color: lighten($color-dark, 40%) $secondary-color;
         scrollbar-width: thin;
+
         &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	        border-radius: 0 0 10px 0;
-	        background-color: #F5F5F5;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 0 0 10px 0;
+            background-color: #F5F5F5;
         }
-        
+
         &::-webkit-scrollbar {
             width: 8px;
-	        background-color: #F5F5F5;
+            background-color: #F5F5F5;
         }
-        
+
         &::-webkit-scrollbar-thumb {
             border-radius: 0 0 10px 0;
-	        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	        background-color: lighten($color-dark, 50%);
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: lighten($color-dark, 50%);
         }
+
         &--ingredients {
             background-color: $filters-1;
         }
+
         &--device {
             background-color: $filters-2;
         }
+
         &--ustensils {
             background-color: $filters-3;
         }
     }
+
     &__inputField {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
+
     &__listContainer {
         width: 100%;
         padding: 10px;
         background: none;
         cursor: pointer;
         border: 0;
+
         &:focus-visible {
             outline: 0;
         }
-        
+
         &--ingredients {
             background-color: $filters-1;
         }
+
         &--device {
             background-color: $filters-2;
         }
+
         &--ustensils {
             background-color: $filters-3;
         }
     }
-    &__messageContainer {
-        display: none;
-        //display: flex;
+
+    &__message {
+        display: flex;
         align-items: center;
         width: fit-content;
-        justify-content: center;        
+        justify-content: center;
         border-radius: 5px;
         background-color: lighten($primary-color, 40%);
         margin: 0 auto;
         padding: 1rem;
     }
-    // &__icoClose {
-        
-    // }
+
+    &__messageContainer {
+        display: flex;
+    }
 }
+
 .is-expanded {
     display: flex;
 }
+
 .is-selected {
     background-color: lighten($color-dark, 100%);
     border-radius: 5px;
 }
+
 .formExpanded {
     width: 97%;
 }
+
 @media screen and (max-width: 1024px) {
     .filters {
         &__taglist {
             justify-content: center;
             flex-wrap: wrap;
         }
+
         &__mainContainers {
             flex-wrap: wrap;
             justify-content: center;
         }
+
         &__container {
             flex-shrink: 0;
+        }
+
+        &__inputContainer {
+            position: initial;
         }
     }
 }
 
 .tags {
     &__taglist {
+        //position: absolute;
         display: grid;
         grid-template-columns: repeat(3, minmax(150px, 1fr));
         padding: 1rem;
         padding-left: 2rem;
-        gap: 1rem;        
+        gap: 1rem;
     }
 }
+
 @media screen and (max-width: 1024px) {
     .tags {
         &__taglist {
             grid-template-columns: repeat(2, minmax(150px, 1fr));
-            }
         }
     }
+}
+
 @media screen and (max-width: 400px) {
     .tags {
         &__taglist {
             grid-template-columns: repeat(2, minmax(100px, 1fr));
-            }
         }
     }
+}
+
 .tag {
     max-width: 100%;
     padding: 1rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+
     &:hover {
         background-color: lighten($color-dark, 100%);
         border-radius: 5px;
