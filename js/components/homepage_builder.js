@@ -52,7 +52,7 @@ filtersInput.forEach((input) => {
         );
         break;
       default:
-        console.log("erreur");
+        break;
     }
   });
 });
@@ -246,7 +246,6 @@ function openTaglist(idContainer) {
  * @params {recipes} charge les données JSON pour construire les articles de recherches
  */
 function recipeCardBuilder(recipes) {
-  console.log("recipeCardBuilder", recipes);
   const recipeCard = document.getElementById("recipeContainer");
   recipeCard.innerHTML = "";
   for (const recipe of recipes) {
@@ -322,10 +321,9 @@ document.getElementById("searchBar").addEventListener("submit", (e) => {
 })
 
 searchBarInput.addEventListener("keyup", (e) => {
-  console.log("triggered")
   if (e.target.value.length >= 3) {
-    addFilter(e);
     searchBarValue = searchBarInput.value.toLowerCase();
+    addFilter(e);
     noRecipesMessage.innerHTML = "";
     if (recipesArrayFiltered.length == 0) showErrorMessage();
   } else showErrorMessage();
