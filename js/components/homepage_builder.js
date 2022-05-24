@@ -1,85 +1,54 @@
-/**
- * to do:
- * revoir la sélection du multifiltres: charge les recettes par rapport au dernier filtre selectionné actuellement sans tenir compte des autres filtres
- * voir le tri par champs de recherche
- */
+var allIng = [];
+var filteredIng = [];
+var allDevices = [];
+var filteredDevices = [];
+var allUstensils = [];
+var filteredUstensils = [];
+var searchBarValue = "";
+var recipesArray = [];
+var recipesArrayFiltered = [];
 
-let allIng = [];
-let filteredIng = [];
-let allDevices = [];
-let filteredDevices = [];
-let allUstensils = [];
-let filteredUstensils = [];
-let recipesArray = [];
-let recipesArrayFiltered = [];
 
 fetch("./js/API/recipes.json")
-  .then(function (response) {
-    if (response.ok) {
-      return response.json();
-    }
+  .then((response) => {
+    if (response.ok) return response.json();
   })
-  .then(function (value) {
-    // const searchParams = new URLSearchParams(window.location.search);
-    // const recipesId = searchParams.get("id");
-
+  .then((value) => {
     //affiche les recettes
     recipeCardBuilder(value.recipes);
     recipesArray = value.recipes;
-
-    // //affiche les tags des champs ingredients, appareils et ustensils
-    // showTags(allIng, 'ingredientsTaglist', 'ingredients');
-    // showTags(allDevices, 'devicesTaglist', 'device');
-    // showTags(allUstensils, 'ustensilsTaglist', 'ustensils');
   })
-  .catch(function (error) {
-    console.error(error);
-  });
+  .catch((error) => console.error(error));
+
 // filtrer les elements dans les listes en fonction des valeurs saisies dans les inputs
 const filtersInput = document.querySelectorAll(".filters__input");
 filtersInput.forEach((input) => {
-  input.addEventListener("keyup", function (event) {
+  input.addEventListener("keyup", (event) => {
     if (event.target.value.length > 0) {
-      event.target.parentElement.nextElementSibling.classList.add(
-        "is-expanded"
-      );
+      event.target.parentElement.nextElementSibling.classList.add("is-expanded");
     } else {
-      event.target.parentElement.nextElementSibling.classList.remove(
-        "is-expanded"
-      );
+      event.target.parentElement.nextElementSibling.classList.remove("is-expanded");
     }
     switch (event.target.dataset.search) {
       case "ingredients":
         showTags(
           allIng.filter(
-            (ing) =>
-              ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
-          ),
-          "ingredientsTaglist",
-          "ingredients"
+            (ing) => ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ), "ingredientsTaglist", "ingredients"
         );
         break;
       case "devices":
         showTags(
           allDevices.filter(
-            (device) =>
-              device.toLowerCase().indexOf(event.target.value.toLowerCase()) !=
-              -1
-          ),
-          "devicesTaglist",
-          "device"
+            (device) => device.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ), "devicesTaglist", "device"
         );
         break;
       case "ustensils":
         showTags(
           allUstensils.filter(
-            (ustensil) =>
-              ustensil
-                .toLowerCase()
-                .indexOf(event.target.value.toLowerCase()) != -1
-          ),
-          "ustensilsTaglist",
-          "ustensils"
+            (ustensil) => ustensil.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ), "ustensilsTaglist", "ustensils"
         );
         break;
       default:
@@ -109,92 +78,95 @@ function showTags(items, tagId, type) {
   }
   tag.innerHTML = templateTaglist;
   const tags = tag.querySelectorAll(".tag");
+  
+  tags.forEach((tag) => tag.addEventListener("click", addFilter));
+}
+
+//affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
+function addFilter(event) {
   const tagsBtn = document.getElementById("tagsBtn");
-  tags.forEach((tag) => {
-    tag.addEventListener("click", function (event) {
-      //affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
-      const type = event.target.dataset.type;
-      const value = event.target.dataset.item;
-      if (
-        !event.target.classList.contains("is-selected") &&
-        type !== undefined &&
-        value !== undefined
-      ) {
-        let templateTag = ``;
-        let properValueCase =
-          value[0].toUpperCase() + value.toLowerCase().slice(1);
-        templateTag += `
-                <li>
-                <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
-                    ${properValueCase}
-                    <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
-                </button>
-                </li>
-                `;
-        tagsBtn.innerHTML += templateTag;
-        event.target.classList.add("is-selected");
+  const type = (event.target.dataset.type !== undefined) ? event.target.dataset.type : "default";
+  const value = (event.target.dataset.item !== undefined) ? event.target.dataset.item : event.target.value;
+  if (!event.target.classList.contains("is-selected")) {    
+    let properValueCase = value[0].toUpperCase() + value.toLowerCase().slice(1);
+    if (type == "default" && document.querySelector(".filters__btn--default") !== null) {
+      const filterDefault = document.querySelector(".filters__btn--default");
+      filterDefault.dataset.controls = value;
+      filterDefault.innerHTML = properValueCase+'<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">';
+    } else {
+      let templateTag = `
+              <li>
+              <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
+                  ${properValueCase}
+                  <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+              </button>
+              </li>
+              `;
+      tagsBtn.innerHTML += templateTag;
+      if(type !== "default") event.target.classList.add("is-selected");
+    }
 
-        switch (type) {
-          case "ingredients":
-            filteredIng.push(value);
-            break;
-          case "device":
-            //console.log("device",type, filteredDevices, value)
-            filteredDevices.push(value);
-            break;
-          case "ustensils":
-            console.log("ustensils", type, filteredUstensils, value);
-            filteredUstensils.push(value);
-            break;
-          default:
-            console.log("erreur");
-        }
+    switch (type) {
+      case "ingredients":
+        filteredIng.push(value);
+        break;
+      case "device":
+        filteredDevices.push(value);
+        break;
+      case "ustensils":
+        filteredUstensils.push(value);
+        break;
+      default: 
+        break;
+    }
 
-        // maj liste des recettes
-        recipeCardBuilder(
-          recipesArray.filter((recipe) => {
-            let globalBoolean = false;
-            let ingBoolean = false;
-            let devBoolean = false;
-            let ustBoolean = false;
-            if (filteredIng.length > 0) {
-              recipe.ingredients.forEach((ing) => {
-                if (filteredIng.indexOf(ing.ingredient) != -1)
-                  ingBoolean = true;
-              });
-            } else {
-              ingBoolean = true;
-            }
+    // maj liste des recettes
+    const filtered = recipeFilter();
+    recipeCardBuilder(filtered);
+  }
+};
 
-            if (filteredDevices.length > 0) {
-              if (filteredDevices.indexOf(recipe.appliance) != -1)
-                devBoolean = true;
-            } else {
-              devBoolean = true;
-            }
-            if (filteredUstensils.length > 0) {
-              recipe.ustensils.forEach((ust) => {
-                if (filteredUstensils.indexOf(ust) != -1) ustBoolean = true;
-              });
-            } else {
-              ustBoolean = true;
-            }
+//permet de filtrer les recettes lorsqu'on selectionne un tag
+function recipeFilter() {
+  recipesArrayFiltered = recipesArray.filter((recipe) => {
+    let globalBoolean = false;
+    let ingBoolean = false;
+    let devBoolean = false;
+    let ustBoolean = false;
+    let searchBarBoolean = false;
+    const ustString = recipe.ustensils.join(", ");
+    const ingString = recipe.ingredients.map((ing) => ing.ingredient).join(", ");
 
-            console.log(
-              ingBoolean,
-              devBoolean,
-              ustBoolean,
-              filteredIng,
-              filteredDevices,
-              filteredUstensils
-            );
-            if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
-            return globalBoolean;
-          })
-        );
-      }
+    ingBoolean = filteredIng.every((el) => {
+      let condition = false;
+      if (ingString.indexOf(el) != -1) condition = true;
+      return condition;
     });
+
+    devBoolean = filteredDevices.every((el) => {
+      let condition = false;
+      if (el.indexOf(recipe.appliance) != -1) condition = true;
+      return condition;
+    });
+
+    ustBoolean = filteredUstensils.every((el) => {
+      let condition = false;
+      if (ustString.indexOf(el) != -1) condition = true;
+      return condition;
+    });
+
+    if(recipe.name.toLowerCase().indexOf(searchBarValue) !== -1 ||
+      ingString.toLowerCase().indexOf(searchBarValue) !== -1 ||
+      ustString.toLowerCase().indexOf(searchBarValue) !== -1 ||
+      recipe.appliance.toLowerCase().indexOf(searchBarValue) !== -1) {
+        searchBarBoolean = true;
+    }
+
+    if (ingBoolean && devBoolean && ustBoolean && searchBarBoolean) globalBoolean = true;
+    return globalBoolean;
   });
+
+  return recipesArrayFiltered;
 }
 
 // enleve le tag ajouté suite à la selection dans la liste et enleve la classe is-selected quand on le ferme.
@@ -214,81 +186,56 @@ window.removeFilter = (filter) => {
     filteredUstensils.splice(filteredUstensils.indexOf(unselectValue), 1);
   }
 
-  document
-    .querySelector('[data-item="' + unselectValue + '"]')
-    .classList.remove("is-selected"); // enleve la classe is-selected
-  recipeCardBuilder(
-    recipesArray.filter((recipe) => {
-      let globalBoolean = false;
-      let ingBoolean = false;
-      let devBoolean = false;
-      let ustBoolean = false;
-      if (filteredIng.length > 0) {
-        recipe.ingredients.forEach((ing) => {
-          if (filteredIng.indexOf(ing.ingredient) != -1) ingBoolean = true;
-        });
-      } else {
-        ingBoolean = true;
-      }
+  if (!filter.classList.contains("filters__btn--default") ) {
+    document.querySelector('[data-item="' + unselectValue + '"]').classList.remove("is-selected"); // enleve la classe is-selected
+  } else {
+    searchBarValue = "";
+    searchBarInput.value = "";
+    noRecipesMessage.innerHTML = "";
+  }
 
-      if (filteredDevices.length > 0) {
-        if (filteredDevices.indexOf(recipe.appliance) != -1) devBoolean = true;
-      } else {
-        devBoolean = true;
-      }
-      if (filteredUstensils.length > 0) {
-        recipe.ustensils.forEach((ust) => {
-          if (filteredUstensils.indexOf(ust) != -1) ustBoolean = true;
-        });
-      } else {
-        ustBoolean = true;
-      }
-
-      console.log(
-        ingBoolean,
-        devBoolean,
-        ustBoolean,
-        filteredIng,
-        filteredDevices,
-        filteredUstensils
-      );
-      if (ingBoolean && devBoolean && ustBoolean) globalBoolean = true;
-      return globalBoolean;
-    })
-  );
+  const filtered = recipeFilter();
+  recipeCardBuilder(filtered);
 };
 
 document.querySelectorAll(".filters__dropDown").forEach((btn) =>
-  btn.addEventListener("click", function (event) {
+  btn.addEventListener("click", (event) => {
     event.preventDefault();
     openTaglist(btn.getAttribute("aria-controls"));
   })
 );
+
+// window.onclick = (e)=> {
+//   if(!e.target.matches(".filters__dropDown")) {
+//     let tagsContainer = document.querySelector("filters__inputContainer is-expanded");
+//       if(tagsContainer.classList.contains("is-expanded")) {
+//         tagsContainer.classList.remove("is-expanded");
+//       }
+//     }
+//   }
+
 
 //fonction ouverture container des tags au clic sur le dropdown
 function openTaglist(idContainer) {
   let tagContainer = document.getElementById(idContainer);
   const filtersForm = tagContainer.previousElementSibling;
   const icoDropDown = filtersForm.querySelector(".ico");
+  
   let tempPlaceholder = filtersForm.childNodes[1].placeholder;
-  filtersForm.childNodes[1].placeholder =
-    filtersForm.childNodes[1].dataset.placeholder;
+  filtersForm.childNodes[1].placeholder = filtersForm.childNodes[1].dataset.placeholder;
   filtersForm.childNodes[1].dataset.placeholder = tempPlaceholder;
+
   if (tagContainer.classList.contains("is-expanded")) {
     tagContainer.classList.remove("is-expanded");
     icoDropDown.classList.replace("ico__dropUp", "ico__dropDown");
   } else {
-    if (
-      document.querySelector(".filters__inputContainer.is-expanded") != null
-    ) {
-      let input = document.querySelector(".filters__inputContainer.is-expanded")
-        .previousElementSibling.childNodes[1];
+    if (document.querySelector(".filters__inputContainer.is-expanded") != null) {
+      let input = document.querySelector(".filters__inputContainer.is-expanded").previousElementSibling.childNodes[1];
       let removePlaceholder = input.placeholder;
       input.placeholder = input.dataset.placeholder;
       input.dataset.placeholder = removePlaceholder;
-      document
-        .querySelector(".filters__inputContainer.is-expanded")
-        .classList.remove("is-expanded");
+
+      document.querySelector(".filters__inputContainer.is-expanded").classList.remove("is-expanded");
     }
     tagContainer.classList.add("is-expanded");
     icoDropDown.classList.replace("ico__dropDown", "ico__dropUp");
@@ -341,19 +288,14 @@ function recipeCardBuilder(recipes) {
   recipes.forEach((e) => {
     //ingrédients
     e.ingredients.forEach((el) => {
-      if (allIng.indexOf(el.ingredient) == -1) {
-        allIng.push(el.ingredient);
-      }
+      if (allIng.indexOf(el.ingredient) == -1) allIng.push(el.ingredient);
     });
     //appareils
-    if (allDevices.indexOf(e.appliance) == -1) {
-      allDevices.push(e.appliance);
-    }
+    if (allDevices.indexOf(e.appliance) == -1) allDevices.push(e.appliance);
+
     //ustensiles
     e.ustensils.forEach((el) => {
-      if (allUstensils.indexOf(el) == -1) {
-        allUstensils.push(el);
-      }
+      if (allUstensils.indexOf(el) == -1) allUstensils.push(el);
     });
   });
   //affiche les tags des champs ingredients, appareils et ustensils
@@ -363,25 +305,42 @@ function recipeCardBuilder(recipes) {
 }
 
 //champ de recherche dans la barre principale
-/**
- * todo: afficher les tags
- *       selection mutliple via la barre + tags
- *       bloquer le chargement via ENTER
- */
 const searchBarInput = document.getElementById("search");
+const noRecipesMessage = document.getElementById("filtersMessage");
+const templateMessage = `
+  <p class="filters__message">
+    Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
+    <button id="closeMessage">
+      <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
+    </button>
+  </p>        
+  `;
+
+//sert à bloquer l'évèvement "ENTER" sur la barre de recherche lorsque le champ a été saisi par l'utilsateur  
+document.getElementById("searchBar").addEventListener("submit", (e) => {
+  e.preventDefault();
+})
 
 searchBarInput.addEventListener("keyup", (e) => {
-  let searchString = searchBarInput.value.toLowerCase();
-  let foundedRecipes = recipesArray.filter((recipe) => {
-    const ingredients = recipe.ingredients;
-    const ustensils = recipe.ustensils.join(", ");
-    const ingString = ingredients.map((ing) => ing.ingredient).join(", ");
-    return (
-      recipe.name.toLowerCase().indexOf(searchString) !== -1 ||
-      ingString.toLowerCase().indexOf(searchString) !== -1 ||
-      ustensils.toLowerCase().indexOf(searchString) !== -1 ||
-      recipe.appliance.toLowerCase().indexOf(searchString) !== -1
-    );
-  });
-  recipeCardBuilder(foundedRecipes);
+  if (e.target.value.length >= 3) {
+    addFilter(e);
+    searchBarValue = searchBarInput.value.toLowerCase();
+    noRecipesMessage.innerHTML = "";
+    if (recipesArrayFiltered.length == 0) showErrorMessage();
+  } else showErrorMessage();
 });
+
+//fonctions de suppression du message d'absence de recettes
+function showErrorMessage() {
+  noRecipesMessage.innerHTML = templateMessage;
+  document.getElementById("closeMessage").addEventListener("click", removeErrorMessage)
+}
+function removeErrorMessage() {
+  noRecipesMessage.innerHTML = "";
+  searchBarValue = "";
+  searchBarInput.value = "";
+  if(document.querySelector(".filters__btn--default") !== null) document.querySelector(".filters__btn--default").remove();
+
+  const filtered = recipeFilter();
+  recipeCardBuilder(filtered);
+}

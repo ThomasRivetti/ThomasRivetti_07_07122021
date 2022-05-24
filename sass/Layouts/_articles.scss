@@ -1,4 +1,9 @@
 .recipe {
+    &__container {
+        display: flex;
+        flex-direction: column;
+    }
+
     &__mainContainer {
         width: 1240px;
         margin: 2rem auto;
@@ -9,24 +14,31 @@
         gap: 50px;
         justify-items: center;
     }
+
     &__picture {
-        border-radius: 5px  5px 0 0;
+        border-radius: 5px 5px 0 0;
         max-width: 380px;
         height: 180px;
         background-color: $secondary-color;
     }
-    &__infoBlock{
+
+    &__infoBlock {
         padding: 1rem;
         background-color: lighten($color-dark, 90%);
         border-radius: 0 0 5px 5px;
+        flex-grow: 1;
     }
+
     &__legend {
         display: flex;
         padding: 1.5rem 0;
     }
+
     &__time {
         margin-left: auto;
+        flex: 0 0 auto;
     }
+
     &__infos {
         display: -ms-grid;
         display: grid;
@@ -34,45 +46,50 @@
         padding-bottom: 2rem;
         gap: 1rem;
     }
+
     &__instructions {
         padding-right: 1rem;
     }
+
     &__instructionsBlock {
         overflow: auto;
         text-overflow: ellipsis;
         height: 110px;
         scrollbar-color: lighten($primary-color, 20%) $secondary-color;
         scrollbar-width: thin;
+
         &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	        border-radius: 10px;
-	        background-color: #F5F5F5;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
         }
-        
+
         &::-webkit-scrollbar {
             width: 8px;
-	        background-color: #F5F5F5;
+            background-color: #F5F5F5;
         }
-        
+
         &::-webkit-scrollbar-thumb {
             border-radius: 10px;
-	        box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-	        background-color: lighten($primary-color, 20%);
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+            background-color: lighten($primary-color, 20%);
         }
-        
+
     }
 }
-@media screen and (max-width: 1024px) {
+
+@media screen and (max-width: 1260px) {
     .recipe {
         &__mainContainer {
             width: 100vw;
             margin: 2rem auto;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 25px;
-            
+
         }
+
         &__container {
-            
+
             max-width: 380px;
         }
     }

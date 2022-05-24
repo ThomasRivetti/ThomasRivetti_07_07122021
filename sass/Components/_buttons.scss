@@ -3,12 +3,13 @@
         width: fit-content;
         width: -moz-fit-content;
         padding: 0.5rem 2rem;
-        margin: 2rem 1rem 0 0 ;
+        margin: 2rem 1rem 0 0;
         border-radius: 5px;
         display: flex;
         align-items: center;
     }
-    &__dropDown{
+
+    &__dropDown {
         width: 40px;
         height: 70px;
         background: none;
@@ -16,35 +17,44 @@
         border: 0;
         border-radius: 0 5px 5px 0;
     }
+
     &__btn {
         border-radius: 5px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background-color: $secondary-color;
+
         &--ingredients {
             background-color: $filters-1;
         }
+
         &--device {
             background-color: $filters-2;
         }
+
         &--ustensils {
             background-color: $filters-3;
         }
     }
 }
+
 .ico {
     cursor: pointer;
+
     &__search {
         width: 33px;
         height: 33px;
         margin-right: 2rem;
 
     }
+
     &__close {
         width: 24px;
         height: 24px;
         margin-left: 1rem;
     }
+
     &__dropUp {
         transform: rotate(180deg);
     }
