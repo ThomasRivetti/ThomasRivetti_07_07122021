@@ -322,6 +322,7 @@ document.getElementById("searchBar").addEventListener("submit", (e) => {
 })
 
 searchBarInput.addEventListener("keyup", (e) => {
+  console.log("triggered")
   if (e.target.value.length >= 3) {
     addFilter(e);
     searchBarValue = searchBarInput.value.toLowerCase();
