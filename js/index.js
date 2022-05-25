@@ -8,6 +8,7 @@ var searchBarValue = "";
 var recipesArray = [];
 var recipesArrayFiltered = [];
 
+//fetch API JSON
 fetch("./js/API/recipes.json")
   .then((response) => {
     if (response.ok) return response.json();
