@@ -127,13 +127,13 @@ function addFilter(event) {
       filterDefault.dataset.controls = value;
       filterDefault.innerHTML =
         properValueCase +
-        '<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">';
+        '<img src="./assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">';
     } else {
       let templateTag = `
               <li>
               <button onclick="removeFilter(this)" data-controls="${value}" class="filters__tag filters__btn filters__btn--${type}">
                   ${properValueCase}
-                  <img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
+                  <img src="./assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">
               </button>
               </li>
               `;
@@ -294,7 +294,7 @@ function recipeCardBuilder(recipes) {
                 <div class="recipe__infoBlock">
                     <div class="recipe__legend">
                         <h2 class="recipe__name">${recipe.name}</h2>
-                        <span class="recipe__time"><img src="/assets/img/ico/ico_clock.svg" alt=""> ${recipe.time}min</span>
+                        <span class="recipe__time"><img src="./assets/img/ico/ico_clock.svg" alt=""> ${recipe.time}min</span>
                     </div>
                     <div class="recipe__infos">
                         <div class="recipe__ingredients">
@@ -348,7 +348,7 @@ const templateMessage = `
   <p class="filters__message">
     Aucune recette ne correspond à votre recherche... Vous pouvez chercher "tarte aux pommes", "poisson", etc.
     <button id="closeMessage">
-      <img src="/assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
+      <img src="./assets/img/ico/ico_close_dark.svg" alt="ferme le bloc d'informations" class="ico ico__close filters__icoClose">
     </button>
   </p>        
   `;
