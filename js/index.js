@@ -1,3 +1,11 @@
+// supported in IE
+function isLocalHost(url) {
+  return url.indexOf("localhost") !== -1 || url.indexOf("127.0.0.1") !== -1;
+}
+const JSONURL = isLocalHost(window.location.href)
+  ? "./js/API/recipes.json"
+  : "https://thomasrivetti.github.io/ThomasRivetti_07_07122021/js/API/recipes.json";
+
 var allIng = [];
 var filteredIng = [];
 var allDevices = [];
@@ -9,7 +17,7 @@ var recipesArray = [];
 var recipesArrayFiltered = [];
 
 //fetch API JSON
-fetch("./js/API/recipes.json")
+fetch(JSONURL)
   .then((response) => {
     if (response.ok) return response.json();
   })
@@ -25,30 +33,46 @@ const filtersInput = document.querySelectorAll(".filters__input");
 filtersInput.forEach((input) => {
   input.addEventListener("keyup", (event) => {
     if (event.target.value.length > 0) {
-      event.target.parentElement.nextElementSibling.classList.add("is-expanded");
+      event.target.parentElement.nextElementSibling.classList.add(
+        "is-expanded"
+      );
     } else {
-      event.target.parentElement.nextElementSibling.classList.remove("is-expanded");
+      event.target.parentElement.nextElementSibling.classList.remove(
+        "is-expanded"
+      );
     }
     switch (event.target.dataset.search) {
       case "ingredients":
         showTags(
           allIng.filter(
-            (ing) => ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
-          ), "ingredientsTaglist", "ingredients"
+            (ing) =>
+              ing.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
+          ),
+          "ingredientsTaglist",
+          "ingredients"
         );
         break;
       case "devices":
         showTags(
           allDevices.filter(
-            (device) => device.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
-          ), "devicesTaglist", "device"
+            (device) =>
+              device.toLowerCase().indexOf(event.target.value.toLowerCase()) !=
+              -1
+          ),
+          "devicesTaglist",
+          "device"
         );
         break;
       case "ustensils":
         showTags(
           allUstensils.filter(
-            (ustensil) => ustensil.toLowerCase().indexOf(event.target.value.toLowerCase()) != -1
-          ), "ustensilsTaglist", "ustensils"
+            (ustensil) =>
+              ustensil
+                .toLowerCase()
+                .indexOf(event.target.value.toLowerCase()) != -1
+          ),
+          "ustensilsTaglist",
+          "ustensils"
         );
         break;
       default:
@@ -78,21 +102,32 @@ function showTags(items, tagId, type) {
   }
   tag.innerHTML = templateTaglist;
   const tags = tag.querySelectorAll(".tag");
-  
+
   tags.forEach((tag) => tag.addEventListener("click", addFilter));
 }
 
 //affiche les tags selectionnés lors du clic et ajoute la classe is-selected dessus
 function addFilter(event) {
   const tagsBtn = document.getElementById("tagsBtn");
-  const type = (event.target.dataset.type !== undefined) ? event.target.dataset.type : "default";
-  const value = (event.target.dataset.item !== undefined) ? event.target.dataset.item : event.target.value;
-  if (!event.target.classList.contains("is-selected")) {    
+  const type =
+    event.target.dataset.type !== undefined
+      ? event.target.dataset.type
+      : "default";
+  const value =
+    event.target.dataset.item !== undefined
+      ? event.target.dataset.item
+      : event.target.value;
+  if (!event.target.classList.contains("is-selected")) {
     let properValueCase = value[0].toUpperCase() + value.toLowerCase().slice(1);
-    if (type == "default" && document.querySelector(".filters__btn--default") !== null) {
+    if (
+      type == "default" &&
+      document.querySelector(".filters__btn--default") !== null
+    ) {
       const filterDefault = document.querySelector(".filters__btn--default");
       filterDefault.dataset.controls = value;
-      filterDefault.innerHTML = properValueCase+'<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">';
+      filterDefault.innerHTML =
+        properValueCase +
+        '<img src="/assets/img/ico/ico_close.svg" alt="close selected filter" class="ico ico__close">';
     } else {
       let templateTag = `
               <li>
@@ -103,7 +138,7 @@ function addFilter(event) {
               </li>
               `;
       tagsBtn.innerHTML += templateTag;
-      if(type !== "default") event.target.classList.add("is-selected");
+      if (type !== "default") event.target.classList.add("is-selected");
     }
 
     switch (type) {
@@ -116,7 +151,7 @@ function addFilter(event) {
       case "ustensils":
         filteredUstensils.push(value);
         break;
-      default: 
+      default:
         break;
     }
 
@@ -124,7 +159,7 @@ function addFilter(event) {
     const filtered = recipeFilter();
     recipeCardBuilder(filtered);
   }
-};
+}
 
 //permet de filtrer les recettes lorsqu'on selectionne un tag
 function recipeFilter() {
@@ -135,7 +170,9 @@ function recipeFilter() {
     let ustBoolean = false;
     let searchBarBoolean = false;
     const ustString = recipe.ustensils.join(", ");
-    const ingString = recipe.ingredients.map((ing) => ing.ingredient).join(", ");
+    const ingString = recipe.ingredients
+      .map((ing) => ing.ingredient)
+      .join(", ");
 
     ingBoolean = filteredIng.every((el) => {
       let condition = false;
@@ -155,14 +192,17 @@ function recipeFilter() {
       return condition;
     });
 
-    if(recipe.name.toLowerCase().indexOf(searchBarValue) !== -1 ||
+    if (
+      recipe.name.toLowerCase().indexOf(searchBarValue) !== -1 ||
       ingString.toLowerCase().indexOf(searchBarValue) !== -1 ||
       ustString.toLowerCase().indexOf(searchBarValue) !== -1 ||
-      recipe.appliance.toLowerCase().indexOf(searchBarValue) !== -1) {
-        searchBarBoolean = true;
+      recipe.appliance.toLowerCase().indexOf(searchBarValue) !== -1
+    ) {
+      searchBarBoolean = true;
     }
 
-    if (ingBoolean && devBoolean && ustBoolean && searchBarBoolean) globalBoolean = true;
+    if (ingBoolean && devBoolean && ustBoolean && searchBarBoolean)
+      globalBoolean = true;
     return globalBoolean;
   });
 
@@ -186,8 +226,10 @@ window.removeFilter = (filter) => {
     filteredUstensils.splice(filteredUstensils.indexOf(unselectValue), 1);
   }
 
-  if (!filter.classList.contains("filters__btn--default") ) {
-    document.querySelector('[data-item="' + unselectValue + '"]').classList.remove("is-selected"); // enleve la classe is-selected
+  if (!filter.classList.contains("filters__btn--default")) {
+    document
+      .querySelector('[data-item="' + unselectValue + '"]')
+      .classList.remove("is-selected"); // enleve la classe is-selected
   } else {
     searchBarValue = "";
     searchBarInput.value = "";
@@ -210,22 +252,28 @@ function openTaglist(idContainer) {
   let tagContainer = document.getElementById(idContainer);
   const filtersForm = tagContainer.previousElementSibling;
   const icoDropDown = filtersForm.querySelector(".ico");
-  
+
   let tempPlaceholder = filtersForm.childNodes[1].placeholder;
-  filtersForm.childNodes[1].placeholder = filtersForm.childNodes[1].dataset.placeholder;
+  filtersForm.childNodes[1].placeholder =
+    filtersForm.childNodes[1].dataset.placeholder;
   filtersForm.childNodes[1].dataset.placeholder = tempPlaceholder;
 
   if (tagContainer.classList.contains("is-expanded")) {
     tagContainer.classList.remove("is-expanded");
     icoDropDown.classList.replace("ico__dropUp", "ico__dropDown");
   } else {
-    if (document.querySelector(".filters__inputContainer.is-expanded") != null) {
-      let input = document.querySelector(".filters__inputContainer.is-expanded").previousElementSibling.childNodes[1];
+    if (
+      document.querySelector(".filters__inputContainer.is-expanded") != null
+    ) {
+      let input = document.querySelector(".filters__inputContainer.is-expanded")
+        .previousElementSibling.childNodes[1];
       let removePlaceholder = input.placeholder;
       input.placeholder = input.dataset.placeholder;
       input.dataset.placeholder = removePlaceholder;
 
-      document.querySelector(".filters__inputContainer.is-expanded").classList.remove("is-expanded");
+      document
+        .querySelector(".filters__inputContainer.is-expanded")
+        .classList.remove("is-expanded");
     }
     tagContainer.classList.add("is-expanded");
     icoDropDown.classList.replace("ico__dropDown", "ico__dropUp");
@@ -305,10 +353,10 @@ const templateMessage = `
   </p>        
   `;
 
-//sert à bloquer l'évèvement "ENTER" sur la barre de recherche lorsque le champ a été saisi par l'utilsateur  
+//sert à bloquer l'évèvement "ENTER" sur la barre de recherche lorsque le champ a été saisi par l'utilsateur
 document.querySelector("form.searchBar").addEventListener("submit", (e) => {
   e.preventDefault();
-})
+});
 
 searchBarInput.addEventListener("keyup", (e) => {
   if (e.target.value.length >= 3) {
@@ -322,13 +370,16 @@ searchBarInput.addEventListener("keyup", (e) => {
 //fonctions de suppression du message d'absence de recettes
 function showErrorMessage() {
   noRecipesMessage.innerHTML = templateMessage;
-  document.getElementById("closeMessage").addEventListener("click", removeErrorMessage)
+  document
+    .getElementById("closeMessage")
+    .addEventListener("click", removeErrorMessage);
 }
 function removeErrorMessage() {
   noRecipesMessage.innerHTML = "";
   searchBarValue = "";
   searchBarInput.value = "";
-  if(document.querySelector(".filters__btn--default") !== null) document.querySelector(".filters__btn--default").remove();
+  if (document.querySelector(".filters__btn--default") !== null)
+    document.querySelector(".filters__btn--default").remove();
 
   const filtered = recipeFilter();
   recipeCardBuilder(filtered);
