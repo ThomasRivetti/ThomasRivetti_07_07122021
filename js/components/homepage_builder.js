@@ -306,9 +306,9 @@ const templateMessage = `
   `;
 
 //sert à bloquer l'évèvement "ENTER" sur la barre de recherche lorsque le champ a été saisi par l'utilsateur  
-document.getElementById("searchBar").addEventListener("submit", (e) => {
+document.querySelector("form.searchBar").addEventListener("submit", (e) => {
   e.preventDefault();
-})
+});
 
 searchBarInput.addEventListener("keyup", (e) => {
   if (e.target.value.length >= 3) {
