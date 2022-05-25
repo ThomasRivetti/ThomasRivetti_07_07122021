@@ -8,7 +8,6 @@ var searchBarValue = "";
 var recipesArray = [];
 var recipesArrayFiltered = [];
 
-
 fetch("./js/API/recipes.json")
   .then((response) => {
     if (response.ok) return response.json();
@@ -323,6 +322,11 @@ const templateMessage = `
     </button>
   </p>        
   `;
+
+//sert à bloquer l'évèvement "ENTER" sur la barre de recherche lorsque le champ a été saisi par l'utilsateur  
+document.getElementById("searchBar").addEventListener("submit", (e) => {
+  e.preventDefault();
+})
 
 searchBarInput.addEventListener("keyup", (e) => {
   if (e.target.value.length >= 3) {
