@@ -326,8 +326,8 @@ const templateMessage = `
 
 searchBarInput.addEventListener("keyup", (e) => {
   if (e.target.value.length >= 3) {
-    addFilter(e);
     searchBarValue = searchBarInput.value.toLowerCase();
+    addFilter(e);
     noRecipesMessage.innerHTML = "";
     if (recipesArrayFiltered.length == 0) showErrorMessage();
   } else showErrorMessage();
